@@ -29,6 +29,7 @@
 
         $_SESSION['img1'] = 'ok';
         $_SESSION['filesrc1'] = $to;
+        $_SESSION['filename1'] = $newName;
         header("location:management.php");
         
     }
@@ -46,6 +47,7 @@
 
         $_SESSION['img2'] = 'ok';
         $_SESSION['filesrc2'] = $to;
+        $_SESSION['filename2'] = $newName;
         header("location:management.php");
     }
 
@@ -62,6 +64,7 @@
 
         $_SESSION['img3'] = 'ok';
         $_SESSION['filesrc3'] = $to;
+        $_SESSION['filename3'] = $newName;
         header("location:management.php");
     }
 

@@ -3,26 +3,109 @@
 session_start();
 
 
-if (!file_exists("temp1")) {
-    mkdir("temp1");
+if (!file_exists("uplode")) {
+    mkdir("uplode");
 }
 
 $productName = $_POST['productName'];
 $productSize = $_POST['productSize'];
 $productPrice = $_POST['productPrice'];
 $productDetails = $_POST['productDetails'];
-$number = $_POST['number'];
-$activity = $_POST['activity'];
+$sort = $_POST['number'];
 
+if ($_POST['activity']==1) {
+    $activity = true;
+} else {
+    $activity = false;
+}
+
+$img1src= "uplode/".$_SESSION['filename1'];
+$img2src= "uplode/".$_SESSION['filename2'];
+$img3src= "uplode/".$_SESSION['filename3'];
+
+
+$servername = "localhost:3308";
+$username = "root";
+$password = "";
+/*
+try {
+    $conn = new PDO("mysql:host=$servername", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $sql = "CREATE DATABASE atiart";
+    // use exec() because no results are returned
+    $conn->exec($sql);
+    echo "Database created successfully<br>";
+  } 
+  catch(PDOException $e) {
+    echo $e->getMessage();
+  }
+
+  $conn = null;
+*/
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=atiart", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  $stmt = $conn->prepare("INSERT INTO products (name,size,price,details,sort,activity,img1src,img2src,img3src)
+  VALUES (:name,:size,:price,:details,:sort,:activity,:img1src,:img2src,:img3src)");
+
+$stmt->bindParam(':name',$productName);
+$stmt->bindParam(':size',$productSize);
+$stmt->bindParam(':price',$productPrice);
+$stmt->bindParam(':details',$productDetails);
+$stmt->bindParam(':sort',$sort);
+$stmt->bindParam(':activity',$activity);
+$stmt->bindParam(':img1src',$img1src);
+$stmt->bindParam(':img2src',$img2src);
+$stmt->bindParam(':img3src',$img3src);
+
+$stmt->execute(); 
+/*
+  $query = "CREATE TABLE products (
+    id INT AUTO_INCREMENT PRIMARY KEY ,
+    name VARCHAR (255),
+    size VARCHAR (255),
+    price INT (10),
+    details VARCHAR (255),
+    sort INT (4),
+    activity BOOLEAN ,
+    img1src VARCHAR (255),
+    img2src VARCHAR (255),
+    img3src VARCHAR (255)
+)";
+$conn->exec($query);
+*/
+//$query01 = "INSERT INTO products (name,size,price,details,sort,activity,img1src,img2src,img3src) 
+//VALUES ($productName,$productSize,$productPrice,$productDetails,$sort,$activity,$img1src,$img2src,$img3src)";
+/*
+$query01 = "INSERT INTO products (name,size) 
+VALUES ('a','b')";
+
+$conn->exec($query01);
+*/
+rename($_SESSION['filesrc1'] , "uplode/".$_SESSION['filename1']);
+rename($_SESSION['filesrc2'] , "uplode/".$_SESSION['filename2']);
+rename($_SESSION['filesrc3'] , "uplode/".$_SESSION['filename3']);
+session_destroy();
+header("location:management.php");
+} 
+catch(PDOException $e) {
+  echo $e->getMessage();
+}
+$conn = null;
+
+
+/*
 $con = mysqli_connect("localhost:3308", "root", "", "quilling");
-
 if (!$con) {
     echo die(mysqli_connect_error());
 }
+*/
 
 
-
-echo  $productName . '<br/>' . $productSize . '<br/>' . $productPrice . '<br/>' . $productDetails . '<br/>' . $number . '<br/>' . $activity . '<br/>';
+//echo  $productName . '<br/>' . $productSize . '<br/>' . $productPrice . '<br/>' . $productDetails . '<br/>' . $number . '<br/>' . $activity . '<br/>';
 /*
 echo ' <img src= "' . $_SESSION['filesrc1'] . '"/>' . ' <br/>';
 echo ' <img src= "' . $_SESSION['filesrc2'] . '"/>' . ' <br/>';
@@ -34,64 +117,4 @@ $query = "CREATE DATABASE quilling";
 mysqli_query($conection, $query);
 var_dump(mysqli_query($conection, $query));
 
-*/  
-/*
-    if (isset($_FILES['img1'])) {
-    
-        $imgName = $_FILES['img1']['name'];
-        $array = explode(".",$imgName );
-        $ext = end($array);
-        $newName = rand().".".$ext;
-
-        $from = $_FILES['img1']['tmp_name'];
-        $to = "temp1"."/".$newName;
-        move_uploaded_file($from,$to);
-
-        //echo '<img src="'.$to.'">';
-        echo "  ok1   ";
-
-        //$_SESSION['img1'] = 'ok';
-        //$_SESSION['filesrc1'] = $to;
-
-        //header("location:management.php");
-    }
-
-    if (isset($_FILES['img2'])) {
-    
-        $imgName = $_FILES['img2']['name'];
-        $array = explode(".",$imgName );
-        $ext = end($array);
-        $newName = rand().".".$ext;
-
-        $from = $_FILES['img2']['tmp_name'];
-        $to = "temp1"."/".$newName;
-        move_uploaded_file($from,$to);
-
-        //echo '<img src="'.$to.'">';
-        echo "  ok2   ";
-
-        // $_SESSION['img2'] = 'ok';
-        // $_SESSION['filesrc2'] = $to;
-        // header("location:management.php");
-    }
-
-    if (isset($_FILES['img3'])) {
-    
-        $imgName = $_FILES['img3']['name'];
-        $array = explode(".",$imgName );
-        $ext = end($array);
-        $newName = rand().".".$ext;
-
-        $from = $_FILES['img3']['tmp_name'];
-        $to = "temp1"."/".$newName;
-        move_uploaded_file($from,$to);
-
-        //echo '<img src="'.$to.'">';
-        echo "  ok3   ";
-
-        // $_SESSION['img3'] = 'ok';
-        // $_SESSION['filesrc3'] = $to;
-        // header("location:management.php");
-    }
-
-    */
+*/

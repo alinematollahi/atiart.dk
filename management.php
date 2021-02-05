@@ -76,6 +76,7 @@
 
                     <img id="img1" class="imgPreview" src="<?php
                                                             session_start();
+
                                                             if (isset($_SESSION['img1'])) {
                                                                 echo $_SESSION['filesrc1'];
                                                             } else {
@@ -235,6 +236,10 @@
 
 
     <div id="container"></div>
+
+    <?php
+    var_dump($_SESSION['filesrc1']);
+    ?>
 
     <script>
         function submitForm() {
