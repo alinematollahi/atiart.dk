@@ -63,45 +63,123 @@ var_dump($_POST['activity']);
     mkdir("temp");
     }
 
-    if (isset($_FILES['img1'])) {
-    
-        $imgName = $_FILES['img1']['name'];
-        $array = explode(".",$imgName );
-        $ext = end($array);
-        $newName = rand().".".$ext;
+        //============================== change image ==========================//
 
-        $from = $_FILES['img1']['tmp_name'];
-        $to = "temp"."/".$newName;
-        move_uploaded_file($from,$to);
-
-        $_SESSION['img1'] = 'ok';
-        $_SESSION['filesrc1'] = $to;
-        $_SESSION['filename1'] = $newName;
-       // header("location:management.php");
+        if (isset($_FILES['img1']) && isset($_SESSION['img1'])) {
         
+            unlink($_SESSION['filesrc1']);
+    
+            $imgName = $_FILES['img1']['name'];
+            $array = explode(".",$imgName );
+            $ext = end($array);
+            $newName = rand().".".$ext;
+    
+            $from = $_FILES['img1']['tmp_name'];
+            $to = "temp"."/".$newName;
+            move_uploaded_file($from,$to);
+    
+            $_SESSION['img1'] = 'ok';
+            $_SESSION['filesrc1'] = $to;
+            $_SESSION['filename1'] = $newName;
+        }
+    
+        if (isset($_FILES['img2']) && isset($_SESSION['img2'])) {
+    
+            unlink($_SESSION['filesrc2']);
+            
+            $imgName = $_FILES['img2']['name'];
+                $array = explode(".",$imgName );
+                $ext = end($array);
+                $newName = rand().".".$ext;
+        
+                $from = $_FILES['img2']['tmp_name'];
+                $to = "temp"."/".$newName;
+                move_uploaded_file($from,$to);
+        
+                $_SESSION['img2'] = 'ok';
+                $_SESSION['filesrc2'] = $to;
+                $_SESSION['filename2'] = $newName;
+        }
+
+        if (isset($_FILES['img3']) && isset($_SESSION['img3'])) {
+
+            unlink($_SESSION['filesrc3']);
+            
+            $imgName = $_FILES['img3']['name'];
+            $array = explode(".",$imgName );
+            $ext = end($array);
+            $newName = rand().".".$ext;
+    
+            $from = $_FILES['img3']['tmp_name'];
+            $to = "temp"."/".$newName;
+            move_uploaded_file($from,$to);
+    
+            $_SESSION['img3'] = 'ok';
+            $_SESSION['filesrc3'] = $to;
+            $_SESSION['filename3'] = $newName;
+        }
+
+    //============================== add image ==========================//
+
+    if (!isset($_SESSION['img1'])){
+        if (isset($_FILES['img1'])) {
+    
+            $imgName = $_FILES['img1']['name'];
+            $array = explode(".",$imgName );
+            $ext = end($array);
+            $newName = rand().".".$ext;
+    
+            $from = $_FILES['img1']['tmp_name'];
+            $to = "temp"."/".$newName;
+            move_uploaded_file($from,$to);
+    
+            $_SESSION['img1'] = 'ok';
+            $_SESSION['filesrc1'] = $to;
+            $_SESSION['filename1'] = $newName;
+        }
     }
+
+    if (!isset($_SESSION['img2'])){
+        if (isset($_FILES['img2'])) {
+    
+            $imgName = $_FILES['img2']['name'];
+            $array = explode(".",$imgName );
+            $ext = end($array);
+            $newName = rand().".".$ext;
+    
+            $from = $_FILES['img2']['tmp_name'];
+            $to = "temp"."/".$newName;
+            move_uploaded_file($from,$to);
+    
+            $_SESSION['img2'] = 'ok';
+            $_SESSION['filesrc2'] = $to;
+            $_SESSION['filename2'] = $newName;
+        }
+    }
+    
+    if (!isset($_SESSION['img3'])){
+        if (isset($_FILES['img3'])) {
+    
+            $imgName = $_FILES['img3']['name'];
+            $array = explode(".",$imgName );
+            $ext = end($array);
+            $newName = rand().".".$ext;
+    
+            $from = $_FILES['img3']['tmp_name'];
+            $to = "temp"."/".$newName;
+            move_uploaded_file($from,$to);
+    
+            $_SESSION['img3'] = 'ok';
+            $_SESSION['filesrc3'] = $to;
+            $_SESSION['filename3'] = $newName;
+        }
+    }
+
+    //============================== remove image ==========================//
 
     if (isset($_POST['remove1'])){
         unlink($_SESSION['filesrc1']);
         $_SESSION['img1'] =null;
-    }
-
-
-    if (isset($_FILES['img2'])) {
-    
-        $imgName = $_FILES['img2']['name'];
-        $array = explode(".",$imgName );
-        $ext = end($array);
-        $newName = rand().".".$ext;
-
-        $from = $_FILES['img2']['tmp_name'];
-        $to = "temp"."/".$newName;
-        move_uploaded_file($from,$to);
-
-        $_SESSION['img2'] = 'ok';
-        $_SESSION['filesrc2'] = $to;
-        $_SESSION['filename2'] = $newName;
-        //header("location:management.php");
     }
 
     if (isset($_POST['remove2'])){
@@ -109,27 +187,16 @@ var_dump($_POST['activity']);
         $_SESSION['img2'] =null;
     }
 
-    if (isset($_FILES['img3'])) {
-    
-        $imgName = $_FILES['img3']['name'];
-        $array = explode(".",$imgName );
-        $ext = end($array);
-        $newName = rand().".".$ext;
-
-        $from = $_FILES['img3']['tmp_name'];
-        $to = "temp"."/".$newName;
-        move_uploaded_file($from,$to);
-
-        $_SESSION['img3'] = 'ok';
-        $_SESSION['filesrc3'] = $to;
-        $_SESSION['filename3'] = $newName;
-        //header("location:management.php");
-    }
-
     if (isset($_POST['remove3'])){
         unlink($_SESSION['filesrc3']);
         $_SESSION['img3'] =null;
     }
+
+
+
+    
+
+    
 
 
 ?>
