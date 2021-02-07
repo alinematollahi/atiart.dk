@@ -11,7 +11,7 @@ $productName = $_POST['productName'];
 $productSize = $_POST['productSize'];
 $productPrice = $_POST['productPrice'];
 $productDetails = $_POST['productDetails'];
-$sort = $_POST['number'];
+$sort = $_POST['sort'];
 
 if ($_POST['activity']==1) {
     $activity = true;
