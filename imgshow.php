@@ -10,7 +10,10 @@
     $_SESSION['filesrc3'];
 */
 
-
+$_SESSION['productName'] =$_POST['productName'];
+$_SESSION['productSize'] = $_POST['productSize'];
+$_SESSION['productPrice'] = $_POST['productPrice'];
+$_SESSION['productDetails'] = $_POST['productDetails'];
 
    if (!file_exists("temp")) {
     mkdir("temp");
