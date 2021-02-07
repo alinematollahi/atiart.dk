@@ -1,3 +1,123 @@
+<?php
+session_start();
+
+
+$servername = "localhost:3308";
+$username = "root";
+$password = "";
+
+try {
+  $conn = new PDO("mysql:host=$servername;dbname=atiart", $username, $password);
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+  //$stmt = $conn->prepare("INSERT INTO products (name,size,price,details,sort,activity,img1src,img2src,img3src)
+  //VALUES (:name,:size,:price,:details,:sort,:activity,:img1src,:img2src,:img3src)");
+
+    //$stmt->bindParam(':name',$productName);
+    $stmt = $conn->prepare("SELECT * FROM products");
+    $stmt->execute();
+
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $productNumber = count($result);
+    
+    $stmt01 = $conn->prepare("SELECT * FROM products WHERE activity=?");
+    $stmt01->bindValue(1,'1');
+    $stmt01->execute();
+
+    $result01=$stmt01->fetchAll(PDO::FETCH_ASSOC);
+    $activeProductNumber = count($result01);   
+} 
+catch(PDOException $e) {
+  echo $e->getMessage();
+}
+$conn = null;
+
+if (isset($_POST['productName'])) {
+    $_SESSION['productName'] =$_POST['productName'];
+}
+if (isset($_POST['productSize'])) {
+    $_SESSION['productSize'] =$_POST['productSize'];
+}
+if (isset($_POST['productPrice'])) {
+    $_SESSION['productPrice'] =$_POST['productPrice'];
+}
+if (isset($_POST['productDetails'])) {
+    $_SESSION['productDetails'] =$_POST['productDetails'];
+}
+if (isset($_POST['sort'])) {
+    $_SESSION['sort'] =$_POST['sort'];
+}
+if (isset($_POST['activity'])) {
+    $_SESSION['activity'] =$_POST['activity'];
+} 
+
+var_dump($_POST['productName']);
+var_dump($_POST['productSize']);
+var_dump($_POST['productPrice']);
+var_dump($_POST['productDetails']);
+var_dump($_POST['sort']);
+var_dump($_POST['activity']);
+
+   if (!file_exists("temp")) {
+    mkdir("temp");
+    }
+
+    if (isset($_FILES['img1'])) {
+    
+        $imgName = $_FILES['img1']['name'];
+        $array = explode(".",$imgName );
+        $ext = end($array);
+        $newName = rand().".".$ext;
+
+        $from = $_FILES['img1']['tmp_name'];
+        $to = "temp"."/".$newName;
+        move_uploaded_file($from,$to);
+
+        $_SESSION['img1'] = 'ok';
+        $_SESSION['filesrc1'] = $to;
+        $_SESSION['filename1'] = $newName;
+       // header("location:management.php");
+        
+    }
+
+    if (isset($_FILES['img2'])) {
+    
+        $imgName = $_FILES['img2']['name'];
+        $array = explode(".",$imgName );
+        $ext = end($array);
+        $newName = rand().".".$ext;
+
+        $from = $_FILES['img2']['tmp_name'];
+        $to = "temp"."/".$newName;
+        move_uploaded_file($from,$to);
+
+        $_SESSION['img2'] = 'ok';
+        $_SESSION['filesrc2'] = $to;
+        $_SESSION['filename2'] = $newName;
+        //header("location:management.php");
+    }
+
+    if (isset($_FILES['img3'])) {
+    
+        $imgName = $_FILES['img3']['name'];
+        $array = explode(".",$imgName );
+        $ext = end($array);
+        $newName = rand().".".$ext;
+
+        $from = $_FILES['img3']['tmp_name'];
+        $to = "temp"."/".$newName;
+        move_uploaded_file($from,$to);
+
+        $_SESSION['img3'] = 'ok';
+        $_SESSION['filesrc3'] = $to;
+        $_SESSION['filename3'] = $newName;
+        //header("location:management.php");
+    }
+
+
+
+
+?>
 <html lang="en">
 
 <head>
@@ -10,79 +130,125 @@
 <body>
     <button onclick="f()">click</button>
     <div>
-        
+
         <div id="addProduct" class="productBox">
             <!--
                 <form id="addProductForm" action="addproduct.php" method="POST" enctype="multipart/form-data">
             -->
-                <div class="tableDiv">
-                <form id="addProductForm" action="addproduct.php" method="POST" enctype="multipart/form-data">
+            <div class="tableDiv">
+                <form id="addProductForm" action="addproduct.php" method="POST">
+                <form id="addToSession" action="management.php" method="POST">
                     <table>
                         <tr>
                             <td>Name</td>
                             <td>
-                                <input name="productName" type="text" placeholder="write the name">
+                                <input id="productName" name="productName" type="text" placeholder="write the name"
+                                value="<?php
+                                
+                                if (isset($_SESSION['productName'])) {
+                                    echo $_SESSION['productName'];
+                                } else {
+                                    echo '';
+                                }
+                                ?>"
+                                onchange="setValue()">
                             </td>
                         </tr>
                         <tr>
                             <td>Size</td>
                             <td>
-                                <input name="productSize" type="text" placeholder="write the size">
+                                <input id="productSize" name="productSize" type="text" placeholder="write the size"
+                                value="<?php
+                                
+                                if (isset($_SESSION['productSize'])) {
+                                    echo $_SESSION['productSize'];
+                                } else {
+                                    echo '';
+                                }
+                                ?>"
+                                onchange="setValue()">
                             </td>
                         </tr>
                         <tr>
                             <td>Price</td>
                             <td>
-                                <input name="productPrice" type="text" placeholder="write the price">
+                                <input id="productPrice" name="productPrice" type="text" placeholder="write the price"
+                                value="<?php
+                                
+                                if (isset($_SESSION['productPrice'])) {
+                                    echo $_SESSION['productPrice'];
+                                } else {
+                                    echo '';
+                                }
+                                ?>"
+                                onchange="setValue()">
                             </td>
                         </tr>
                         <tr>
                             <td>Details</td>
                             <td>
-                                <input name="productDetails" type="text" placeholder="write details">
+                                <input id="productDetails" name="productDetails" type="text" placeholder="write details"
+                                value="<?php
+                                
+                                if (isset($_SESSION['productDetails'])) {
+                                    echo $_SESSION['productDetails'];
+                                } else {
+                                    echo '';
+                                }
+                                ?>"
+                                onchange="setValue()">
                             </td>
                         </tr>
                         <tr>
-                            <td>Number</td>
+                            <td>Sort</td>
                             <td>
-                                <select name="number" id="">
-                                    <option value="1">1st</option>
-                                    <option value="2">2st</option>
-                                    <option value="3">3st</option>
+                                <select name="sort" id="sort" onchange="setValue()">
+                                <?php
+                                for($i=$activeProductNumber+1;$i>=1;$i--){
+                                    echo '<option value="'.$i.'" ';
+                                    if (isset($_SESSION['sort']) && $_SESSION['sort']==$i) {echo "selected";}
+                                    echo ' >'.$i.'st</option>';
+                                }
+                                ?>
                                 </select>
                             </td>
                         </tr>
                         <tr>
                             <td>Activity</td>
                             <td>
-                                Active<input type="radio" name="activity" value="1">
-                                Deactive<input type="radio" name="activity" value="0">
+                                Active<input type="radio" name="activity" value="1"  onchange="setValue()" 
+                                <?php
+                                if (!isset($_SESSION['activity'])){
+                                    echo "checked";
+                                } else if (isset($_SESSION['activity']) && $_SESSION['activity']==1) {
+                                        echo "checked";
+                                    }
+                                ?>>
+                                Deactive<input type="radio" name="activity" value="0" onchange="setValue()"
+                                <?php
+                                if (isset($_SESSION['activity']) && $_SESSION['activity']==0) {
+                                    echo "checked";
+                                }
+                                ?>>
                             </td>
                         </tr>
                     </table>
-                    <!--
-                    <div>
-                    <input id="img1-copy" type="file" name="img1">
-                    <input id="img2-copy" type="file" name="img1">
-                    <input id="img3-copy" type="file" name="img1">
-                    </div>
-                    -->
-                    </form>
-                </div>
+                </form>
+                </form>
+            </div>
 
 
-                <div class="pic">
-                    <span class="picTitle">Image 1 (main)</span>
+            <div class="pic">
+                <span class="picTitle">Image 1 (main)</span>
 
-                    <img id="img1" class="imgPreview" src="<?php
-                                                            session_start();
+                <img id="img1" class="imgPreview" src="<?php
 
-                                                            if (isset($_SESSION['img1'])) {
-                                                                echo $_SESSION['filesrc1'];
-                                                            } else {
-                                                                echo '';
-                                                            }
-                                                            ?> 
+                                                        if (isset($_SESSION['img1'])) {
+                                                            echo $_SESSION['filesrc1'];
+                                                        } else {
+                                                            echo '';
+                                                        }
+                                                        ?> 
                     " style="display:                         
                     <?php
                     if (isset($_SESSION['img1'])) {
@@ -92,7 +258,7 @@
                     }
                     ?>
                     ;" />
-                    <label id="label1" class="browse" style="display: 
+                <label id="label1" class="browse" style="display: 
                     <?php
                     if (isset($_SESSION['img1'])) {
                         echo 'none';
@@ -101,11 +267,19 @@
                     }
                     ?>
                     ;">
-                        <form id="img1-form" action="imgshow.php" method="POST" enctype="multipart/form-data">
-                            <input id="img1" type="file" name="img1"  onchange="submitFile1()">
-                        </form>
-                    </label>
-                    <div id="btnDiv1" class="btnDiv" style="display: 
+                    <form id="img1-form" action="management.php" method="POST" enctype="multipart/form-data">
+                        <input id="img1" type="file" name="img1" onchange="submitFile1()">
+                        <div>
+                            <input name="productName" type="hidden" class="name-copy">
+                            <input name="productSize" type="hidden" class="size-copy">
+                            <input name="productPrice" type="hidden" class="price-copy">
+                            <input name="productDetails" type="hidden" class="details-copy">
+                            <input name="sort" type="hidden" class="sort-copy">
+                            <input name="activity" type="hidden" class="activity-copy">
+                        </div>
+                    </form>
+                </label>
+                <div id="btnDiv1" class="btnDiv" style="display: 
                     <?php
                     if (isset($_SESSION['img1'])) {
                         echo 'block';
@@ -114,25 +288,33 @@
                     }
                     ?>
                     ;">
-                        <label class="browse-change">
-                            <form id="img1-change-form" action="imgshow.php" method="POST" enctype="multipart/form-data">
-                                <input type="file" name="img1"  onchange="submitChangeFile1()">
-                            </form>
-                        </label>
-                        <button onclick="rmimg1()">Remove Image</button>
-                    </div>
+                    <label class="browse-change">
+                        <form id="img1-change-form" action="management.php" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="img1" onchange="submitChangeFile1()">
+                            <div>
+                            <input name="productName" type="hidden" class="name-copy">
+                            <input name="productSize" type="hidden" class="size-copy">
+                            <input name="productPrice" type="hidden" class="price-copy">
+                            <input name="productDetails" type="hidden" class="details-copy">
+                            <input name="sort" type="hidden" class="sort-copy" >
+                            <input name="activity" type="hidden" class="activity-copy">
+                        </div>
+                        </form>
+                    </label>
+                    <button onclick="rmimg1()">Remove Image</button>
                 </div>
+            </div>
 
 
 
-                <div class="pic">
-                    <span class="picTitle">Image 2</span>
+            <div class="pic">
+                <span class="picTitle">Image 2</span>
 
-                    <img id="img2" class="imgPreview" src=<?php
-                                                            if (isset($_SESSION['img2'])) {
-                                                                echo $_SESSION['filesrc2'];
-                                                            }
-                                                            ?> style="display: 
+                <img id="img2" class="imgPreview" src=<?php
+                                                        if (isset($_SESSION['img2'])) {
+                                                            echo $_SESSION['filesrc2'];
+                                                        }
+                                                        ?> style="display: 
                     <?php
                     if (isset($_SESSION['img2'])) {
                         echo 'block';
@@ -141,7 +323,7 @@
                     }
                     ?>
                     ;" />
-                    <label id="label2" class="browse" style="display: 
+                <label id="label2" class="browse" style="display: 
                     <?php
                     if (isset($_SESSION['img2'])) {
                         echo 'none';
@@ -150,36 +332,52 @@
                     }
                     ?>
                     ;">
-                        <form id="img2-form" action="imgshow.php" method="POST" enctype="multipart/form-data">
-                            <input type="file" name="img2"  onchange="submitFile2()">
+                    <form id="img2-form" action="management.php" method="POST" enctype="multipart/form-data">
+                        <input type="file" name="img2" onchange="submitFile2()">
+                        <div>
+                            <input name="productName" type="hidden" class="name-copy">
+                            <input name="productSize" type="hidden" class="size-copy">
+                            <input name="productPrice" type="hidden" class="price-copy">
+                            <input name="productDetails" type="hidden" class="details-copy">
+                            <input name="sort" type="hidden" class="sort-copy" >
+                            <input name="activity" type="hidden" class="activity-copy">
+                        </div>
+                    </form>
+                </label>
+                <div id="btnDiv2" class="btnDiv" style="display: 
+                    <?php
+                    if (isset($_SESSION['img2'])) {
+                        echo 'block';
+                    } else {
+                        echo 'none';
+                    }
+                    ?>
+                    ;">
+                    <label class="browse-change">
+                        <form id="img2-change-form" action="management.php" method="POST" enctype="multipart/form-data">
+                            <input id="img2" type="file" name="img2" onchange="submitChangeFile2()">
+                            <div>
+                                <input name="productName" type="hidden" class="name-copy">
+                                <input name="productSize" type="hidden" class="size-copy">
+                                <input name="productPrice" type="hidden" class="price-copy">
+                                <input name="productDetails" type="hidden" class="details-copy">
+                                <input name="sort" type="hidden" class="sort-copy" >
+                                <input name="activity" type="hidden" class="activity-copy">
+                            </div>
                         </form>
                     </label>
-                    <div id="btnDiv2" class="btnDiv" style="display: 
-                    <?php
-                    if (isset($_SESSION['img2'])) {
-                        echo 'block';
-                    } else {
-                        echo 'none';
-                    }
-                    ?>
-                    ;">
-                        <label class="browse-change">
-                            <form id="img2-change-form" action="imgshow.php" method="POST" enctype="multipart/form-data">
-                                <input id="img2" type="file" name="img2"  onchange="submitChangeFile2()">
-                            </form>
-                        </label>
-                        <button onclick="rmimg2()">Remove Image</button>
-                    </div>
+                    <button onclick="rmimg2()">Remove Image</button>
                 </div>
+            </div>
 
-                <div class="pic">
-                    <span class="picTitle">Image 3</span>
+            <div class="pic">
+                <span class="picTitle">Image 3</span>
 
-                    <img id="img3" class="imgPreview" src=<?php
-                                                            if (isset($_SESSION['img3'])) {
-                                                                echo $_SESSION['filesrc3'];
-                                                            }
-                                                            ?> style="display: 
+                <img id="img3" class="imgPreview" src=<?php
+                                                        if (isset($_SESSION['img3'])) {
+                                                            echo $_SESSION['filesrc3'];
+                                                        }
+                                                        ?> style="display: 
                     <?php
                     if (isset($_SESSION['img3'])) {
                         echo 'block';
@@ -188,7 +386,7 @@
                     }
                     ?>
                     ;" />
-                    <label id="label3" class="browse" style="display: 
+                <label id="label3" class="browse" style="display: 
                     <?php
                     if (isset($_SESSION['img3'])) {
                         echo 'none';
@@ -197,49 +395,103 @@
                     }
                     ?>
                     ;">
-                        <form id="img3-form" action="imgshow.php" method="POST" enctype="multipart/form-data">
-                            <input id="img3" type="file" name="img3" onchange="submitFile3()">
+                    <form id="img3-form" action="management.php" method="POST" enctype="multipart/form-data">
+                        <input id="img3" type="file" name="img3" onchange="submitFile3()">
+                        <div>
+                            <input name="productName" type="hidden" class="name-copy">
+                            <input name="productSize" type="hidden" class="size-copy">
+                            <input name="productPrice" type="hidden" class="price-copy">
+                            <input name="productDetails" type="hidden" class="details-copy">
+                            <input name="sort" type="hidden" class="sort-copy" >
+                            <input name="activity" type="hidden" class="activity-copy">
+                        </div>
+                    </form>
+                </label>
+                <div id="btnDiv3" class="btnDiv" style="display: 
+                    <?php
+                    if (isset($_SESSION['img3'])) {
+                        echo 'block';
+                    } else {
+                        echo 'none';
+                    }
+                    ?>
+                    ;">
+                    <label class="browse-change">
+                        <form id="img3-change-form" action="management.php" method="POST" enctype="multipart/form-data">
+                            <input type="file" name="img3" onchange="submitChangeFile3()">
+                            <div>
+                            <input name="productName" type="hidden" class="name-copy">
+                            <input name="productSize" type="hidden" class="size-copy">
+                            <input name="productPrice" type="hidden" class="price-copy">
+                            <input name="productDetails" type="hidden" class="details-copy">
+                            <input name="sort" type="hidden" class="sort-copy" >
+                            <input name="activity" type="hidden" class="activity-copy">
+                        </div>
                         </form>
                     </label>
-                    <div id="btnDiv3" class="btnDiv" style="display: 
-                    <?php
-                    if (isset($_SESSION['img3'])) {
-                        echo 'block';
-                    } else {
-                        echo 'none';
-                    }
-                    ?>
-                    ;">
-                        <label class="browse-change">
-                            <form id="img3-change-form" action="imgshow.php" method="POST" enctype="multipart/form-data">
-                                <input type="file" name="img3"  onchange="submitChangeFile3()">
-                            </form>
-                        </label>
-                        <button onclick="rmimg3()">Remove Image</button>
-                    </div>
+                    <button onclick="rmimg3()">Remove Image</button>
                 </div>
+            </div>
 
-                
 
-                <div class="setDiv">
-                    <div class="saveDiv">
-                        <button class="savebtn" onclick="submitForm()">Save Changes</button>
-                        <button class="cancelbtn">Cancel</button>
-                    </div>
+
+            <div class="setDiv">
+                <div class="saveDiv">
+                    <button class="savebtn" onclick="submitForm()">Save Changes</button>
+                    <button class="cancelbtn">Cancel</button>
                 </div>
+            </div>
             <!--
             </form>
             -->
         </div>
-        
+
     </div>
 
 
     <div id="container"></div>
 
-    <?php
-    var_dump($_SESSION['filesrc1']);
-    ?>
+    <script>
+        function setValue() {
+            var productName = document.getElementById("productName");
+            var productSize = document.getElementById("productSize");
+            var productPrice = document.getElementById("productPrice");
+            var productDetails = document.getElementById("productDetails");
+
+            var sort = document.getElementById("sort");
+            var sortValue = sort.options[sort.selectedIndex];
+
+            var activity = document.querySelector("input[type='radio'][name='activity']:checked");
+
+            var nameCopy = document.getElementsByClassName("name-copy");
+            for (var i1=0 ; i1<nameCopy.length ; i1++) {
+                nameCopy[i1].value = productName.value;
+            }
+            var sizeCopy = document.getElementsByClassName("size-copy");
+            for (var i2=0 ; i2<sizeCopy.length ; i2++) {
+                sizeCopy[i2].value = productSize.value;
+            }
+            var priceCopy = document.getElementsByClassName("price-copy");
+            for (var i3=0 ; i3<priceCopy.length ; i3++) {
+                priceCopy[i3].value = productPrice.value;
+            }
+            var detailsCopy = document.getElementsByClassName("details-copy");
+            for (var i4=0 ; i4<detailsCopy.length ; i4++) {
+                detailsCopy[i4].value = productDetails.value;
+            }
+            var sortCopy = document.getElementsByClassName("sort-copy");
+            for (var i5=0 ; i5<sortCopy.length ; i5++) {
+                sortCopy[i5].value = sortValue.value;
+            }
+            var activityCopy = document.getElementsByClassName("activity-copy");
+            for (var i6=0 ; i6<activityCopy.length ; i6++) {
+                activityCopy[i6].value = activity.value;
+            }
+        }
+        
+        window.addEventListener("load",setValue);
+        
+    </script>
 
     <script>
         function submitForm() {
@@ -269,6 +521,10 @@
 
     <script>
         function submitFile1() {
+            
+            //var addToSessionForm = document.getElementById("addToSession");
+            //addToSessionForm.submit();
+
             var imgForm1 = document.getElementById("img1-form");
             imgForm1.submit();
         }
@@ -525,7 +781,7 @@
             var td9 = document.createElement("td");
             tr5.appendChild(td9);
 
-            td9.innerHTML = "Number";
+            td9.innerHTML = "Sort";
 
             var td10 = document.createElement("td");
             tr5.appendChild(td10);
