@@ -50,13 +50,14 @@ if (isset($_POST['sort'])) {
 if (isset($_POST['activity'])) {
     $_SESSION['activity'] =$_POST['activity'];
 } 
-
+/*
 var_dump($_POST['productName']);
 var_dump($_POST['productSize']);
 var_dump($_POST['productPrice']);
 var_dump($_POST['productDetails']);
 var_dump($_POST['sort']);
 var_dump($_POST['activity']);
+*/
 
    if (!file_exists("temp")) {
     mkdir("temp");
@@ -80,6 +81,12 @@ var_dump($_POST['activity']);
         
     }
 
+    if (isset($_POST['remove1'])){
+        unlink($_SESSION['filesrc1']);
+        $_SESSION['img1'] =null;
+    }
+
+
     if (isset($_FILES['img2'])) {
     
         $imgName = $_FILES['img2']['name'];
@@ -95,6 +102,11 @@ var_dump($_POST['activity']);
         $_SESSION['filesrc2'] = $to;
         $_SESSION['filename2'] = $newName;
         //header("location:management.php");
+    }
+
+    if (isset($_POST['remove2'])){
+        unlink($_SESSION['filesrc2']);
+        $_SESSION['img2'] =null;
     }
 
     if (isset($_FILES['img3'])) {
@@ -114,7 +126,10 @@ var_dump($_POST['activity']);
         //header("location:management.php");
     }
 
-
+    if (isset($_POST['remove3'])){
+        unlink($_SESSION['filesrc3']);
+        $_SESSION['img3'] =null;
+    }
 
 
 ?>
@@ -301,7 +316,9 @@ var_dump($_POST['activity']);
                         </div>
                         </form>
                     </label>
-                    <button onclick="rmimg1()">Remove Image</button>
+                    <form action="management.php" method="POST">
+                    <button type="submit" onclick="rmimg1()" name="remove1">Remove Image</button>
+                    </form>
                 </div>
             </div>
 
@@ -366,7 +383,9 @@ var_dump($_POST['activity']);
                             </div>
                         </form>
                     </label>
-                    <button onclick="rmimg2()">Remove Image</button>
+                    <form  action="management.php" method="POST">
+                    <button type="submit" onclick="rmimg2()" name="remove2">Remove Image</button>
+                    </form>
                 </div>
             </div>
 
@@ -429,7 +448,9 @@ var_dump($_POST['activity']);
                         </div>
                         </form>
                     </label>
-                    <button onclick="rmimg3()">Remove Image</button>
+                    <form  action="management.php" method="POST">
+                    <button type="submit" onclick="rmimg3()" name="remove3">Remove Image</button>
+                    </form>
                 </div>
             </div>
 
