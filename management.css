@@ -30,10 +30,16 @@ body {
     text-align: center;
     display: block;
 }
-.imgPreview {
+.imgAddPreview {
     height: 145px;
     width: auto;
     display: none;
+    margin: 5px auto;
+}
+.imgShowPreview {
+    height: 195px;
+    width: auto;
+    display: block;
     margin: 5px auto;
 }
 
