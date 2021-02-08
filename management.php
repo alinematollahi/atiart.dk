@@ -219,7 +219,6 @@ var_dump($_POST['activity']);
             -->
             <div class="tableDiv">
                 <form id="addProductForm" action="addproduct.php" method="POST">
-                <form id="addToSession" action="management.php" method="POST">
                     <table>
                         <tr>
                             <td>Name</td>
@@ -316,14 +315,13 @@ var_dump($_POST['activity']);
                         </tr>
                     </table>
                 </form>
-                </form>
             </div>
 
 
             <div class="pic">
                 <span class="picTitle">Image 1 (main)</span>
 
-                <img id="img1" class="imgPreview" src="<?php
+                <img id="img1" class="imgAddPreview" src="<?php
 
                                                         if (isset($_SESSION['img1'])) {
                                                             echo $_SESSION['filesrc1'];
@@ -394,11 +392,11 @@ var_dump($_POST['activity']);
             <div class="pic">
                 <span class="picTitle">Image 2</span>
 
-                <img id="img2" class="imgPreview" src=<?php
+                <img id="img2" class="imgAddPreview" src="<?php
                                                         if (isset($_SESSION['img2'])) {
                                                             echo $_SESSION['filesrc2'];
                                                         }
-                                                        ?> style="display: 
+                                                        ?> " style="display: 
                     <?php
                     if (isset($_SESSION['img2'])) {
                         echo 'block';
@@ -459,11 +457,11 @@ var_dump($_POST['activity']);
             <div class="pic">
                 <span class="picTitle">Image 3</span>
 
-                <img id="img3" class="imgPreview" src=<?php
+                <img id="img3" class="imgAddPreview" src= "<?php
                                                         if (isset($_SESSION['img3'])) {
                                                             echo $_SESSION['filesrc3'];
                                                         }
-                                                        ?> style="display: 
+                                                        ?> " style="display: 
                     <?php
                     if (isset($_SESSION['img3'])) {
                         echo 'block';
@@ -536,8 +534,129 @@ var_dump($_POST['activity']);
 
     </div>
 
+    <div id="showProduct">
+        <?php
+            for($n=0;$n<$productNumber;$n++) {
+        ?>
+        <div class="productBox">
+            <div class="tableDiv">
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td> <?php echo $result[$n]['name']; ?> </td>
+                        </tr>
+                        <tr>
+                            <td>Size</td>
+                            <td> <?php echo $result[$n]['size']; ?> </td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td> <?php echo $result[$n]['price']; ?> </td>
+                        </tr>
+                        <tr>
+                            <td>Details</td>
+                            <td> <?php echo $result[$n]['details']; ?> </td>
+                        </tr>
+                        <tr>
+                            <td>Sort</td>
+                            <?php
+                                if ($result[$n]['activity'] == '1') {
+                                    echo '<td> '.$result[$n]['sort'].'st';
+                                } else {
+                                    echo '<td style="color: red;"> --- ';  
+                                }
+                            ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Activity</td>
+                            <?php
+                                if ($result[$n]['activity'] == '1') {
+                                    echo '<td  style="color: green;"> Active ';
+                                } else {
+                                    echo '<td  style="color: red;"> Deactive ';  
+                                }
+                            ?>
+                            </td>
+                        </tr>
+                    </table>
+            </div>
+
+
+            <div class="pic">
+                <span class="picTitle">Image 1 (main)</span>
+
+                <img class="imgShowPreview" style="display: block; height: 195px;" style="max-width: 100%;"
+                src="<?php echo $result[$n]['img1src'] ?>"   
+                />
+            </div>
+
+            <div class="pic">
+                <span class="picTitle">Image 2</span>
+
+                <img class="imgShowPreview" 
+                src="<?php echo $result[$n]['img2src'] ?>"   
+                />
+            </div>
+
+            <div class="pic">
+                <span class="picTitle">Image 3</span>
+
+                <img class="imgShowPreview" 
+                src="<?php echo $result[$n]['img3src'] ?>"   
+                />
+            </div>
+
+            <div class="setDiv">
+
+                <div class="editDiv">
+                    <button class="editbtn" >Edit Product</button>
+                    <form action="deleteProduct.php" method="POST">
+                    <button type="submit" class="rmbtn">Remove Product</button>
+                    <input type="hidden" name="remove" value="<?php echo $result[$n]['id'] ?>">
+                    </form>
+                </div>
+                <div class="saveDiv">
+                    <button class="savebtn" onclick="submitForm()">Save Changes</button>
+                    <button class="cancelbtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+    </div>
 
     <div id="container"></div>
+
+    <script>
+
+        let edit = document.getElementsByClassName("editbtn");
+        for (var i=0;i<edit.length;i++) {
+            edit[i].addEventListener("click",function () {
+                this.style.color="blue";
+            });
+        }
+
+        let remove = document.getElementsByClassName("rmbtn");
+        for (var i=0;i<remove.length;i++) {
+            remove[i].addEventListener("click",function () {
+                this.style.color="blue";
+            });
+        }
+
+        let save = document.getElementsByClassName("savebtn");
+        for (var i=0;i<save.length;i++) {
+            save[i].addEventListener("click",function () {
+                this.style.color="blue";
+            });
+        }
+
+        let cancel = document.getElementsByClassName("cancelbtn");
+        for (var i=0;i<cancel.length;i++) {
+            cancel[i].addEventListener("click",function () {
+                this.style.color="blue";
+            });
+        }
+    </script>
 
     <script>
         function setValue() {
@@ -578,7 +697,6 @@ var_dump($_POST['activity']);
         }
         
         window.addEventListener("load",setValue);
-        
     </script>
 
     <script>
