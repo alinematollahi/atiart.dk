@@ -14,7 +14,7 @@ try {
   //VALUES (:name,:size,:price,:details,:sort,:activity,:img1src,:img2src,:img3src)");
 
     //$stmt->bindParam(':name',$productName);
-    $stmt = $conn->prepare("SELECT * FROM products");
+    $stmt = $conn->prepare("SELECT * FROM products ORDER BY sort");
     $stmt->execute();
 
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -192,13 +192,6 @@ var_dump($_POST['activity']);
         $_SESSION['img3'] =null;
     }
 
-
-
-    
-
-    
-
-
 ?>
 <html lang="en">
 
@@ -214,9 +207,6 @@ var_dump($_POST['activity']);
     <div>
 
         <div id="addProduct" class="productBox">
-            <!--
-                <form id="addProductForm" action="addproduct.php" method="POST" enctype="multipart/form-data">
-            -->
             <div class="tableDiv">
                 <form id="addProductForm" action="addproduct.php" method="POST">
                     <table>
@@ -285,19 +275,55 @@ var_dump($_POST['activity']);
                             <td>
                                 <select name="sort" id="sort" onchange="setValue()">
                                 <?php
-                                for($i=$activeProductNumber+1;$i>=1;$i--){
-                                    echo '<option value="'.$i.'" ';
-                                    if (isset($_SESSION['sort']) && $_SESSION['sort']==$i) {echo "selected";}
-                                    echo ' >'.$i.'st</option>';
+                                if (isset($_SESSION['activity']) && $_SESSION['activity']==0) {
+                                    echo " <option value='9999' > --- </option>";
+                                } else {
+                                    for($i=$activeProductNumber+1;$i>=1;$i--){
+                                        echo '<option class="sort-select-option" value="'.$i.'" ';
+                                        if (isset($_SESSION['sort']) && $_SESSION['sort']==$i) {echo "selected";}
+                                        echo ' >'.$i;
+                                        if ($i=='1'){echo 'st</option> ';}   
+                                         elseif ($i=='2') {echo 'nd</option> ';}
+                                        else {echo 'th</option> ';}
+                                    }
                                 }
                                 ?>
                                 </select>
                             </td>
                         </tr>
+                        
+                        <script type="text/javascript">
+                        /*
+                            var act = document.getElementsByClassName("activation");
+                            for (n in act) {
+                                act[n].addEventListener('change', function () {
+                                    if (activity.value == 0) {
+                                        act[n].innerHTML=" --- ";    
+                                    }else {
+                                        act[n].innerHTML= '
+                                       
+                                        ';
+                                    }
+                                })
+                            }
+
+
+                            /*
+                            var act = document.getElementsByClassName("sort-select-option");
+                            if (activity.value == 0) {
+                                for (n in act) {
+                                    act[n].innerHTML=" --- ";
+                                }
+                            } else {
+
+                            }
+                            */
+                        </script>
+
                         <tr>
-                            <td>Activity</td>
+                            <td>Activation</td>
                             <td>
-                                Active<input type="radio" name="activity" value="1"  onchange="setValue()" 
+                                Active<input type="radio" name="activity" value="1"  class="activation" onchange="setValue()" 
                                 <?php
                                 if (!isset($_SESSION['activity'])){
                                     echo "checked";
@@ -305,7 +331,7 @@ var_dump($_POST['activity']);
                                         echo "checked";
                                     }
                                 ?>>
-                                Deactive<input type="radio" name="activity" value="0" onchange="setValue()"
+                                Deactive<input type="radio" name="activity" value="0" class="activation" onchange="setValue()"
                                 <?php
                                 if (isset($_SESSION['activity']) && $_SESSION['activity']==0) {
                                     echo "checked";
@@ -561,7 +587,10 @@ var_dump($_POST['activity']);
                             <td>Sort</td>
                             <?php
                                 if ($result[$n]['activity'] == '1') {
-                                    echo '<td> '.$result[$n]['sort'].'st';
+                                    echo '<td> '.$result[$n]['sort'];
+                                    if ($result[$n]['sort']=='1'){echo 'st';}   
+                                    elseif ($result[$n]['sort']=='2') {echo 'nd';}
+                                    else {echo 'th';}    
                                 } else {
                                     echo '<td style="color: red;"> --- ';  
                                 }
@@ -611,12 +640,21 @@ var_dump($_POST['activity']);
 
                 <div class="editDiv">
                     <button class="editbtn" >Edit Product</button>
-                    <form action="deleteProduct.php" method="POST">
-                    <button type="submit" class="rmbtn">Remove Product</button>
-                    <input type="hidden" name="remove" value="<?php echo $result[$n]['id'] ?>">
-                    </form>
+                    <button class="rmbtn">Remove Product</button>
+                        <div class="hide-window">
+                            <div class="question">
+                                Are you sure to remove <?php echo $result[$n]['name'] ?> ??!
+                                <button class="no-remove">No</button>
+                                <form action="deleteProduct.php" method="POST">
+                                    <button type="submit"  style="color: red;">Yes</button>
+                                    <input type="hidden" name="remove" value="<?php echo $result[$n]['id'] ?>">
+                                    <input type="hidden" name="rmSort" value="<?php echo $result[$n]['sort'] ?>">
+                                </form>
+                            </div>
+                        </div>    
                 </div>
-                <div class="saveDiv">
+
+                <div class="edit-save">
                     <button class="savebtn" onclick="submitForm()">Save Changes</button>
                     <button class="cancelbtn">Cancel</button>
                 </div>
@@ -628,20 +666,34 @@ var_dump($_POST['activity']);
     <div id="container"></div>
 
     <script>
+        //====================================  set remove button =======================================//
 
         let edit = document.getElementsByClassName("editbtn");
         for (var i=0;i<edit.length;i++) {
             edit[i].addEventListener("click",function () {
-                this.style.color="blue";
+                //this.style.display="none";
+                //this.parentElement.nextElementSibling.style.display="block";
+
             });
         }
+
+        //====================================  set remove button =======================================//
 
         let remove = document.getElementsByClassName("rmbtn");
         for (var i=0;i<remove.length;i++) {
             remove[i].addEventListener("click",function () {
-                this.style.color="blue";
+                this.nextElementSibling.style.display="block";
             });
         }
+
+        let noRemove = document.getElementsByClassName("no-remove");
+        for (var i=0;i<noRemove.length;i++) {
+            noRemove[i].addEventListener("click",function () {
+                this.parentElement.parentElement.style.display="none";
+            });
+        }
+
+        //====================================  set    button =======================================//
 
         let save = document.getElementsByClassName("savebtn");
         for (var i=0;i<save.length;i++) {
@@ -649,6 +701,8 @@ var_dump($_POST['activity']);
                 this.style.color="blue";
             });
         }
+
+        //====================================  set    button =======================================//
 
         let cancel = document.getElementsByClassName("cancelbtn");
         for (var i=0;i<cancel.length;i++) {
@@ -694,33 +748,52 @@ var_dump($_POST['activity']);
             for (var i6=0 ; i6<activityCopy.length ; i6++) {
                 activityCopy[i6].value = activity.value;
             }
+            
+            
+            var sortActive = document.getElementsByClassName("sort-select-option");
+            /*
+            for (a in sortActive) {
+                sortActiveValue = [];
+                sortActiveValue.push(sortActive[a].value);
+            }
+            */
+
+            if (activity.value == 1) {
+                for(s in sort) {
+                    if (sort.options[s].value==1) {sort.options[s].innerHTML= '1st';}
+                    else if (sort.options[s].value==2) {sort.options[s].innerHTML= '2nd';}
+                    else {sort.options[s].innerHTML= sort.options[s].value+'th';}
+                }
+            } else {
+                for (n in sortActive) {
+                    sortActive[n].innerHTML=" --- ";
+                    sortActive[n].value = '9999';
+                }
+            }
+            //document.getElementById("sort-select-option").innerHTML=" --- ";
+            
         }
-        
+        /*
+        function sortView() {
+            document.getElementsByName("activity");
+            document.querySelectorAll("type='radio' , name='activity'");
+            document.getElementsByClassName("activation");
+        }
+
+        //console.log(document.querySelectorAll("[type='radio']"));
+        console.log(document.getElementsByName("activity")[0]);
+
+        document.getElementsByName("activity")[0].stule.color="red";
+
+
+        document.getElementById("sort-select-option");
+        */
         window.addEventListener("load",setValue);
     </script>
 
     <script>
         function submitForm() {
             let addForm = document.getElementById("addProductForm");
-            /*
-            let img1 =  document.getElementById("img1");
-            let img2 =  document.getElementById("img2");
-            let img3 =  document.getElementById("img3");
-            let img1Copy =  document.getElementById("img1-copy");
-            let img2Copy =  document.getElementById("img2-copy");
-            let img3Copy =  document.getElementById("img3-copy");
-
-            img1Copy = img1;
-            img2Copy = img2;
-            img3Copy = img3;
-            console.log(img1Copy.src);
-            console.log(img2Copy.src);
-            console.log(img3Copy.src);
-            //alert(img1);
-            //alert(img1Copy);
-
-            */
-
             addForm.submit();
         }
     </script>
