@@ -224,3 +224,35 @@ input[type="text"]:focus , select:focus {
     font-weight: bold;
     color: green;
 }
+
+.hide-window {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(19, 17, 17, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+
+.question {
+    width: 40vw;
+    height: 40vh;
+    margin: 30vh auto;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding-top: 10vh;
+    text-align: center;
+}
+
+.question button {
+    width: 15vw;
+    margin-top: 3vh;
+}
+.edit-save {
+    margin-top: 100px;
+    /*display: none;*/
+}
