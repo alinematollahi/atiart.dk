@@ -1,13 +1,21 @@
 <?php
 
-session_start();
-
 
 if (!file_exists("uplode")) {
     mkdir("uplode");
 }
 
-$productName = $_POST['productName'];
+if (isset($_POST['productName'])){$productName = $_POST['productName'];}
+if (isset($_POST['productSize'])){$productSize = $_POST['productSize'];}
+if (isset($_POST['productPrice'])){$productPrice = $_POST['productPrice'];}
+if (isset($_POST['productDetails'])){$productDetails = $_POST['productDetails'];}
+if (isset($_POST['sort'])){$sort = $_POST['sort'];}
+if (isset($_POST['activation'])){$activity = $_POST['activation'];}
+if (isset($_POST['img1TempSrc'])){$img1src = str_replace("temp" , "uplode", $_POST['img1TempSrc']);}
+if (isset($_POST['img2TempSrc'])){$img2src = str_replace("temp" , "uplode", $_POST['img2TempSrc']);}
+if (isset($_POST['img3TempSrc'])){$img3src = str_replace("temp" , "uplode", $_POST['img3TempSrc']);}
+
+/*
 $productSize = $_POST['productSize'];
 $productPrice = $_POST['productPrice'];
 $productDetails = $_POST['productDetails'];
@@ -19,10 +27,24 @@ if ($_POST['activity']==1) {
     $activity = false;
 }
 
+*/
+
+/*
+
+if(isset($_SESSION['filename1'])){$img1src= "uplode/".$_SESSION['filename1'];}
+else {$img1src=null;}
+if(isset($_SESSION['filename2'])){$img1src= "uplode/".$_SESSION['filename2'];}
+else {$img2src=null;}
+if(isset($_SESSION['filename3'])){$img1src= "uplode/".$_SESSION['filename3'];}
+else {$img3src=null;}
+
+*/
+
+/*
 $img1src= "uplode/".$_SESSION['filename1'];
 $img2src= "uplode/".$_SESSION['filename2'];
 $img3src= "uplode/".$_SESSION['filename3'];
-
+*/
 
 $servername = "localhost:3308";
 $username = "root";
@@ -61,35 +83,27 @@ $stmt->bindParam(':img1src',$img1src);
 $stmt->bindParam(':img2src',$img2src);
 $stmt->bindParam(':img3src',$img3src);
 
-$stmt->execute(); 
-/*
-  $query = "CREATE TABLE products (
-    id INT AUTO_INCREMENT PRIMARY KEY ,
-    name VARCHAR (255),
-    size VARCHAR (255),
-    price INT (10),
-    details VARCHAR (255),
-    sort INT (4),
-    activity BOOLEAN ,
-    img1src VARCHAR (255),
-    img2src VARCHAR (255),
-    img3src VARCHAR (255)
-)";
-$conn->exec($query);
-*/
-//$query01 = "INSERT INTO products (name,size,price,details,sort,activity,img1src,img2src,img3src) 
-//VALUES ($productName,$productSize,$productPrice,$productDetails,$sort,$activity,$img1src,$img2src,$img3src)";
-/*
-$query01 = "INSERT INTO products (name,size) 
-VALUES ('a','b')";
+$stmt->execute();
 
-$conn->exec($query01);
-*/
-rename($_SESSION['filesrc1'] , "uplode/".$_SESSION['filename1']);
-rename($_SESSION['filesrc2'] , "uplode/".$_SESSION['filename2']);
-rename($_SESSION['filesrc3'] , "uplode/".$_SESSION['filename3']);
-session_destroy();
-header("location:management.php");
+if ($_POST['img1TempSrc'] !== ''){rename($_POST['img1TempSrc'] , $img1src);}
+if ($_POST['img2TempSrc'] !== ''){rename($_POST['img2TempSrc'] , $img2src);}
+if ($_POST['img3TempSrc'] !== ''){rename($_POST['img3TempSrc'] , $img3src);}
+
+
+$stmt01 = $conn->prepare("SELECT * FROM products WHERE activity=?");
+$stmt01->bindValue(1,'1');
+$stmt01->execute();
+
+$result01=$stmt01->fetchAll(PDO::FETCH_ASSOC);
+$activeProductNumber = count($result01);
+
+$response = array("Product added", $activeProductNumber);
+//$response = array("Product added", 7);
+//$response = array("oooooookkkkk", 7);
+
+
+echo json_encode($response);
+
 } 
 catch(PDOException $e) {
   echo $e->getMessage();
