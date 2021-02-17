@@ -131,8 +131,10 @@
 
     </div>
 
-        <script>
-            //=============================================== Add preview image ===============================================//    
+    <div id="showProduct"></div>
+
+<script>
+//=============================================== Add preview image ===============================================//    
 
             let img1PreviewInput = document.getElementsByClassName("img1PreviewInput");
             for (i = 0; i < img1PreviewInput.length; i++) {
@@ -224,11 +226,13 @@
                 });
             }
 
-            //=============================================== Change preview image ===============================================//
+//=============================================== Change preview image ===============================================//
 
             let img1PreviewChange = document.getElementsByClassName("img1PreviewChange");
             for (i = 0; i < img1PreviewChange.length; i++) {
-                img1PreviewChange[i].addEventListener("change", function() {
+                img1PreviewChange[i].addEventListener("change", changePreviewImage);
+            }   
+                function changePreviewImage() {
 
                     let files = this.files;
                     let file = files[0];
@@ -251,8 +255,8 @@
 
                     xhr.open('POST', 'imgPreview.php', true);
                     xhr.send(formData);
-                });
-            }
+                }
+            
 
             let img2PreviewChange = document.getElementsByClassName("img2PreviewChange");
             for (i = 0; i < img1PreviewChange.length; i++) {
@@ -310,7 +314,7 @@
                 });
             }
 
-            //=============================================== Remove preview image ===============================================//
+//=============================================== Remove preview image ===============================================//
 
             let img1PreviewRemove = document.getElementsByClassName("img1PreviewRemove");
             for (i = 0; i < img1PreviewRemove.length; i++) {
@@ -400,8 +404,8 @@
             }
 
 
+//===============================================  save button  ===============================================// 
 
-            //===============================================  save button  ===============================================//    
             var messages = document.getElementById("messages");
             let savebtn = document.getElementsByClassName("savebtn");
             for (i = 0; i < savebtn.length; i++) {
@@ -491,6 +495,11 @@
                             var sortNumber = response[1];
                             sortNumber = +sortNumber;
                             setSort(sortNumber);
+
+                            var showProduct = document.getElementById("showProduct");
+                            showProduct.innerHTML= "";
+                            getProducts();
+
                         } else {
                             messages.style.display = "block";
                             messages.style.color = "red";
@@ -503,65 +512,11 @@
                 });
             }
 
-   // =======================================  set sort part  ======================================= //
 
-            window.addEventListener("load", getSortNumber);
+   
+</script>
 
-            function getSortNumber() {
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function() {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var sortNumber = this.responseText;
-                        sortNumber = +sortNumber;
-                        setSort(sortNumber);
-                    }
-                };
-                xhttp.open("GET", "setSort.php?sort=ok", true);
-                xhttp.send();
-            }
-            
-            function setSort(sortNumber) {
-
-                var sortSelect = document.getElementsByClassName("sort");
-                for (var i1 = 0; i1 < sortSelect.length; i1++) {
-                    sortSelect[i1].innerHTML='';
-                    for (var i2 = sortNumber + 1; i2 >= 1; i2--) {
-                        var sortOption = document.createElement("option");
-                        sortSelect[i1].appendChild(sortOption);
-                        sortOption.value = i2;
-
-                        switch (i2) {
-                            case 1:
-                                sortOption.innerHTML = '1st';
-                                break;
-                            case 2:
-                                sortOption.innerHTML = '2nd';
-                                break;
-                            default:
-                                sortOption.innerHTML = i2 + 'th';
-                                break;
-                        }
-                    }
-                }
-            }
-
-            document.querySelectorAll("input[name='activation'][class='activation']")[1].addEventListener("change",function(){
-                let select = this.parentElement.parentElement.previousElementSibling.children[1].children[0];
-                select.innerHTML ='';
-                let deactiveOption = document.createElement("option");
-                select.appendChild(deactiveOption);
-                deactiveOption.innerHTML = "---";
-                deactiveOption.value = 9999;
-            });
-
-            document.querySelectorAll("input[name='activation'][class='activation']")[0].addEventListener("change",function(){
-                let select = this.parentElement.parentElement.previousElementSibling.children[1].children[0];
-                select.innerHTML ='';
-                getSortNumber(); 
-            });
-
-            
-        </script>
+<script src="showProducts.js"></script>
 
 </body>
 
