@@ -98,10 +98,6 @@ $result01=$stmt01->fetchAll(PDO::FETCH_ASSOC);
 $activeProductNumber = count($result01);
 
 $response = array("Product added", $activeProductNumber);
-//$response = array("Product added", 7);
-//$response = array("oooooookkkkk", 7);
-
-
 echo json_encode($response);
 
 } 
