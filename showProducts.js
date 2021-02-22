@@ -68,7 +68,7 @@ function getProducts() {
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             let response = JSON.parse(this.responseText);
-            alert('get ok');
+            //alert('get ok');
             showProduct(response);
         }
     };
@@ -77,7 +77,7 @@ function getProducts() {
 }
 
 function showProduct(response) {
-    alert('show ok');
+    //alert('show ok');
     for (let i = 0; i < response.length; i++) {
 
         var showProduct = document.getElementById("showProduct");
@@ -168,7 +168,7 @@ function showProduct(response) {
         var td12 = document.createElement("td");
         tr6.appendChild(td12);
         if (response[i].activity == 1) { td12.innerHTML = 'Active'; td12.style.color = 'green' }
-        else { td12.innerHTML = 'Dective'; td12.style.color = 'red' }
+        else { td12.innerHTML = 'Deactive'; td12.style.color = 'red' }
 
 
         //====================================pic1=======================================
@@ -187,6 +187,16 @@ function showProduct(response) {
         pic1.appendChild(img1);
         img1.src = response[i].img1src;
 
+        var noimage1 = document.createElement("div");
+        noimage1.classList = "noimage";
+        pic1.appendChild(noimage1);
+        noimage1.innerHTML = "No Image Set!"
+
+        if (response[i].img1src == '' || response[i].img1src == null){
+            img1.style.display = "none";
+            noimage1.style.display = "block";
+        }
+
         //====================================pic2=======================================
 
         var pic2 = document.createElement("div");
@@ -203,6 +213,16 @@ function showProduct(response) {
         pic2.appendChild(img2);
         img2.src = response[i].img2src;
 
+        var noimage2 = document.createElement("div");
+        noimage2.classList = "noimage";
+        pic2.appendChild(noimage2);
+        noimage2.innerHTML = "No Image Set!"
+
+        if (response[i].img2src == '' || response[i].img2src == null){
+            img2.style.display = "none";
+            noimage2.style.display = "block";
+        }
+
         //====================================pic3=======================================
 
         var pic3 = document.createElement("div");
@@ -218,6 +238,16 @@ function showProduct(response) {
         img3.classList = "imgShowPreview";
         pic3.appendChild(img3);
         img3.src = response[i].img3src;
+
+        var noimage3 = document.createElement("div");
+        noimage3.classList = "noimage";
+        pic3.appendChild(noimage3);
+        noimage3.innerHTML = "No Image Set!"
+
+        if (response[i].img3src == '' || response[i].img3src == null){
+            img3.style.display = "none";
+            noimage3.style.display = "block";
+        }
 
         //====================================set buttons=======================================
 
@@ -243,9 +273,104 @@ function showProduct(response) {
         editDiv.appendChild(rmbtn);
         rmbtn.innerHTML = "Remove Product";
 
-        var saveDiv = document.createElement("div");
-        saveDiv.classList = "saveDiv";
-        setDiv.appendChild(saveDiv);
+        var hideWindow = document.createElement("div");
+        editDiv.appendChild(hideWindow);
+        hideWindow.classList = "hide-window";
+
+        var question = document.createElement("div");
+        hideWindow.appendChild(question);
+        question.classList = "question";
+
+        var questionText = document.createTextNode("Are you sure to remove " + response[i].name + " ??!");
+        question.appendChild(questionText);
+
+        var nobtn = document.createElement("button");
+        question.appendChild(nobtn);
+        nobtn.innerHTML = "No";
+        nobtn.type = "button";
+
+        var yesbtn = document.createElement("button");
+        question.appendChild(yesbtn);
+        yesbtn.innerHTML = "Yes";
+        yesbtn.type = "button";
+
+        var rmSort = document.createElement("input");
+        question.appendChild(rmSort);
+        rmSort.type = "hidden";
+        rmSort.value = response[i].sort;
+
+
+        rmbtn.addEventListener("click", (event) => {
+            event.target.nextElementSibling.style.display = "block";
+        });
+
+        nobtn.addEventListener("click", (event) => {
+            event.target.parentElement.parentElement.style.display = "none";
+        });
+
+        yesbtn.addEventListener("click", (event) => {
+
+            let productId = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.nextElementSibling.firstElementChild.firstElementChild.value
+            let rmSortValue = event.target.nextElementSibling.value;
+            let formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('rmSort', rmSortValue);
+
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+
+                    let timer = setInterval(func1, 5);
+                    let counter = 0;
+
+                    function func1() {
+                        if (counter == 100) {
+                            clearInterval(timer);
+                            setTimeout(func2, 3000);
+
+                            function func2() {
+                                let timer1 = setInterval(func3, 3);
+                                let counter1 = 100;
+
+                                function func3() {
+                                    if (counter1 == 0) {
+                                        clearInterval(timer1);
+                                        messages.style.display = "none"
+                                    } else {
+                                        counter1--;
+                                        messages.style.opacity = counter1 / 100;
+                                    }
+                                }
+                            }
+                        } else {
+                            counter++;
+                            messages.style.display = "block"
+                            messages.style.opacity = counter / 100;
+                        }
+                    }
+
+                    messages.innerHTML = "Product Removed";
+                    messages.style.color = "red";
+                    
+                    var sortNumber = xhr.responseText;
+                    sortNumber = +sortNumber;
+                    setSort(sortNumber);
+
+                    var showProduct = document.getElementById("showProduct");
+                    showProduct.innerHTML = "";
+                    getProducts();
+
+                } else {
+                    messages.style.display = "block";
+                    messages.style.color = "red";
+                    messages.innerHTML = 'err';
+                }
+            };
+
+            xhr.open('POST', 'delete.php', true);
+            xhr.send(formData);
+        });
+
 
         //=========================================  edit product part  ============================================//
 
@@ -370,35 +495,40 @@ function showProduct(response) {
         var activeInput = document.createElement("input");
         td12.appendChild(activeInput);
         activeInput.type = "radio";
-        activeInput.value = 1;
+        activeInput.value = '1';
         activeInput.name = "activation";
-        activeInput.classList = "editActivation";
+        activeInput.classList = "editActive";
         var node2 = document.createTextNode(" Deactive");
         td12.appendChild(node2);
         var deactiveInput = document.createElement("input");
         td12.appendChild(deactiveInput);
         deactiveInput.type = "radio";
-        deactiveInput.value = 0;
+        deactiveInput.value = '0';
         deactiveInput.name = "activation";
-        deactiveInput.classList = "editActivation";
+        deactiveInput.classList = "editDeactive";
         //if (response[i].activity == '1') { activeInput.checked = true; }
         //else if (response[i].activity == '0') { deactiveInput.checked = true; }
 
         let activeProducts = [];
-            for (var i3 = 0; i3 < response.length; i3++) {
-                if (response[i3].activity == '1') {
-                    activeProducts.push('1');
-                }
+        for (var i3 = 0; i3 < response.length; i3++) {
+            if (response[i3].activity == '1') {
+                activeProducts.push('1');
             }
+        }
 
         if (response[i].activity == '0') {
             deactiveInput.checked = true;
+            activeInput.checked = false;
+            deactiveInput.value = '0';
+
             var sortEditOption = document.createElement("option");
             sortEdit.appendChild(sortEditOption);
             sortEditOption.innerHTML = '---';
             sortEditOption.value = 9999;
         } else if (response[i].activity == '1') {
-            //activeInput.checked = true;
+            activeInput.checked = true;
+            deactiveInput.checked = false;
+            activeInput.value = '1';
 
             for (var i4 = activeProducts.length; i4 >= 1; i4--) {
                 var sortEditOption = document.createElement("option");
@@ -420,15 +550,22 @@ function showProduct(response) {
             }
         }
 
-        activeInput.addEventListener("change",()=>{
-            this.checked = true;
-            if (response[i].activity == '0'){
+        activeInput.addEventListener("change", (event) => {
+            activeInput.checked = true;
+            deactiveInput.checked = false;
+            let showBox = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling;
+            let act = showBox.children[0].children[0].children[5].children[1].innerHTML;
+            let sortEdit = event.target.parentElement.parentElement.previousElementSibling.children[1].children[0];
+
+            if (act == 'Deactive') {
+                sortEdit.innerHTML = '';
                 for (var i5 = activeProducts.length + 1; i5 >= 1; i5--) {
+
                     var sortEditOption = document.createElement("option");
                     sortEdit.appendChild(sortEditOption);
                     sortEditOption.value = i5;
-    
-                    switch (i4) {
+
+                    switch (i5) {
                         case 1:
                             sortEditOption.innerHTML = '1st';
                             break;
@@ -436,25 +573,50 @@ function showProduct(response) {
                             sortEditOption.innerHTML = '2nd';
                             break;
                         default:
-                            sortEditOption.innerHTML = i4 + 'th';
+                            sortEditOption.innerHTML = i5 + 'th';
                             break;
                     }
-                }    
-            }
+                }
+            } else if (act == 'Active') {
+                sortEdit.innerHTML = '';
+                for (var i6 = activeProducts.length; i6 >= 1; i6--) {
+                    let lastSort = showBox.children[0].children[0].children[4].children[1].innerHTML;
+                    lastSort = lastSort.slice(0, -2);
+                    lastSort = +lastSort;
+                    var sortEditOption = document.createElement("option");
+                    sortEdit.appendChild(sortEditOption);
+                    sortEditOption.value = i6;
+                    if (i6 == lastSort) { sortEditOption.selected = "selected"; }
 
+                    switch (i6) {
+                        case 1:
+                            sortEditOption.innerHTML = '1st';
+                            break;
+                        case 2:
+                            sortEditOption.innerHTML = '2nd';
+                            break;
+                        default:
+                            sortEditOption.innerHTML = i6 + 'th';
+                            break;
+                    }
+                }
+            }
         });
-        deactiveInput.addEventListener("change",()=>{
-            this.checked = true;
-            alert(this.tagname);
-            let showBox = this.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling;
-            let act = showBox.children[0].children[0].children[5].children[1].innerHTML;
 
-            if (act == 'Active'){
-                var sortEditOption = document.createElement("option");
-                sortEdit.appendChild(sortEditOption);
-                sortEditOption.innerHTML = '---';
-                sortEditOption.value = 9999;
-            }
+        deactiveInput.addEventListener("click", (event) => {
+
+            deactiveInput.checked = true;
+            activeInput.checked = false;
+
+            let showBox = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.previousElementSibling;
+            let act = showBox.children[0].children[0].children[5].children[1].innerHTML;
+            let sortEdit = event.target.parentElement.parentElement.previousElementSibling.children[1].children[0];
+
+            sortEdit.innerHTML = '';
+            var sortEditOption = document.createElement("option");
+            sortEdit.appendChild(sortEditOption);
+            sortEditOption.innerHTML = '---';
+            sortEditOption.value = 9999;
         });
 
         //==================================== pic1  (edit part) =======================================
@@ -491,17 +653,6 @@ function showProduct(response) {
         btnDiv1.classList = "btnDiv";
         pic1.appendChild(btnDiv1);
 
-
-        /* 
-        <label class="browse-change">
-
-                        <input type="file" name="img1Preview" class="img1PreviewChange">
-                        <input type="hidden" name="img1PreviewRemove">
-
-                    </label>
-
-                    name="img1Preview" class="img1PreviewInput"
-        */
         var labelChange1 = document.createElement("label");
         labelChange1.classList = "browse-change";
         btnDiv1.appendChild(labelChange1);
@@ -522,6 +673,7 @@ function showProduct(response) {
         //rmbtn1.classList = "";
         btnDiv1.appendChild(rmbtn1);
         rmbtn1.innerHTML = "Remove Image";
+        rmbtn1.type = "button";
 
         if (response[i].img1src !== null && response[i].img1src !== '') {
             img1.src = response[i].img1src;
@@ -536,34 +688,87 @@ function showProduct(response) {
             img1TempSrc.value = '';
         }
 
-        inputChangeFile1.addEventListener("change", () => {
+        // change preview
 
+        inputChangeFile1.addEventListener("change", (event) => {
 
-            /*
-                let files = this.files;
-                let file = files[0];
-                
-                let formData = new FormData();
-                //let removeImg = imgChanged.nextElementSibling.value;
-                formData.append('img1PreviewChange', file);  // , file.name
-                formData.append('img1PreviewRemove', img1PreviewRemove.value);
+            let picDiv = event.target.parentElement.parentElement.parentElement;
+            let changeFile1 = event.target;
+            let files = event.target.files;
+            let file = files[0];
 
-                let xhr = new XMLHttpRequest();
-                xhr.onload = function() {
-                    if (xhr.status == 200) {
-                        img1.src = xhr.responseText;
-                        img1TempSrc.value = xhr.responseText;
-                        img1PreviewRemove.value = xhr.responseText;
-                    } else {
-                        document.write('err');
-                    }
-                };
+            let formData = new FormData();
+            let removeImg = event.target.nextElementSibling.value;
+            formData.append('img1PreviewChange', file, file.name);
+            formData.append('img1PreviewRemove', removeImg);
 
-                xhr.open('POST', 'imgPreview.php', true);
-                xhr.send(formData);
-                */
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    picDiv.children[1].src = xhr.responseText;
+                    picDiv.children[2].children[1].value = xhr.responseText;
+                    changeFile1.nextElementSibling.value = xhr.responseText;
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
         });
 
+        // remove preview
+
+        rmbtn1.addEventListener("click", (event) => {
+            event.target.style.color = "blue";
+            let removeImg = event.target.previousElementSibling.children[1].value;
+            let formData = new FormData();
+            formData.append('img1PreviewRemove', removeImg);
+
+            let rm = event.target;
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    rm.parentElement.previousElementSibling.firstElementChild.value = "";
+                    rm.parentElement.previousElementSibling.previousElementSibling.src = "";
+                    rm.parentElement.previousElementSibling.children[1].value = "";
+                    rm.parentElement.previousElementSibling.previousElementSibling.style.display = "none";
+                    rm.parentElement.previousElementSibling.style.display = "block";
+                    rm.parentElement.style.display = "none";
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
+
+        // add preview
+
+        inputFile1.addEventListener("change", function (event) {
+
+            let files = event.target.files;
+            let file = files[0];
+            let formData = new FormData();
+
+            formData.append('img1Preview', file, file.name);
+            let img = event.target;
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    img.parentElement.previousElementSibling.src = xhr.responseText;
+                    img.nextElementSibling.value = xhr.responseText;
+                    img.parentElement.previousElementSibling.style.display = "block";
+                    img.parentElement.style.display = "none";
+                    img.parentElement.nextElementSibling.style.display = "block";
+
+                    img.parentElement.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.value = xhr.responseText;
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
 
         //==================================== pic2  (edit part) =======================================
 
@@ -580,13 +785,6 @@ function showProduct(response) {
         img2.classList = "imgAddPreview";
         pic2.appendChild(img2);
 
-        /*
-                    var addbtn2 = document.createElement("button");
-                    addbtn2.classList = "addbtn";
-                    pic2.appendChild(addbtn2);
-                    addbtn2.innerHTML = "Add Image"
-        */
-
         var label2 = document.createElement("label");
         label2.classList = "browse";
         pic2.appendChild(label2);
@@ -595,30 +793,131 @@ function showProduct(response) {
         inputFile2.type = "file";
         label2.appendChild(inputFile2);
 
+        var img2TempSrc = document.createElement("input");
+        img2TempSrc.type = "hidden";
+        img2TempSrc.name = "img2TempSrc";
+        label2.appendChild(img2TempSrc);
+
         var btnDiv2 = document.createElement("div");
         btnDiv2.classList = "btnDiv";
         pic2.appendChild(btnDiv2);
 
-        var chbtn2 = document.createElement("button");
-        //chbtn2.classList = "";
-        btnDiv2.appendChild(chbtn2);
-        chbtn2.innerHTML = "Change Image";
+        var labelChange2 = document.createElement("label");
+        labelChange2.classList = "browse-change";
+        btnDiv2.appendChild(labelChange2);
+
+        var inputChangeFile2 = document.createElement("input");
+        inputChangeFile2.type = "file";
+        inputChangeFile2.name = "img2Preview";
+        inputChangeFile2.class = "img2PreviewChange";
+        labelChange2.appendChild(inputChangeFile2);
+
+
+        var img2PreviewRemove = document.createElement("input");
+        img2PreviewRemove.type = "hidden";
+        img2PreviewRemove.name = "img2PreviewRemove";
+        labelChange2.appendChild(img2PreviewRemove);
 
         var rmbtn2 = document.createElement("button");
         //rmbtn2.classList = "";
         btnDiv2.appendChild(rmbtn2);
         rmbtn2.innerHTML = "Remove Image";
+        rmbtn2.type = "button";
 
         if (response[i].img2src !== null && response[i].img2src !== '') {
             img2.src = response[i].img2src;
             img2.style.display = "block";
             label2.style.display = "none";
             btnDiv2.style.display = "block";
+            img2TempSrc.value = response[i].img2src;
         } else if (response[i].img2src == '' || response[i].img2src == null) {
             img2.style.display = "none";
             label2.style.display = "block";
             btnDiv2.style.display = "none";
+            img2TempSrc.value = '';
         }
+
+        // change preview
+
+        inputChangeFile2.addEventListener("change", (event) => {
+
+            let picDiv = event.target.parentElement.parentElement.parentElement;
+            let changeFile2 = event.target;
+            let files = event.target.files;
+            let file = files[0];
+
+            let formData = new FormData();
+            let removeImg = event.target.nextElementSibling.value;
+            formData.append('img1PreviewChange', file, file.name);
+            formData.append('img1PreviewRemove', removeImg);
+
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    picDiv.children[1].src = xhr.responseText;
+                    picDiv.children[2].children[1].value = xhr.responseText;
+                    changeFile2.nextElementSibling.value = xhr.responseText;
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
+
+        // remove preview
+
+        rmbtn2.addEventListener("click", (event) => {
+            event.target.style.color = "blue";
+            let removeImg = event.target.previousElementSibling.children[1].value;
+            let formData = new FormData();
+            formData.append('img2PreviewRemove', removeImg);
+
+            let rm = event.target;
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    rm.parentElement.previousElementSibling.firstElementChild.value = "";
+                    rm.parentElement.previousElementSibling.previousElementSibling.src = "";
+                    rm.parentElement.previousElementSibling.children[1].value = "";
+                    rm.parentElement.previousElementSibling.previousElementSibling.style.display = "none";
+                    rm.parentElement.previousElementSibling.style.display = "block";
+                    rm.parentElement.style.display = "none";
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
+
+        // add preview
+
+        inputFile2.addEventListener("change", function (event) {
+
+            let files = event.target.files;
+            let file = files[0];
+            let formData = new FormData();
+
+            formData.append('img2Preview', file, file.name);
+            let img = event.target;
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    img.parentElement.previousElementSibling.src = xhr.responseText;
+                    img.nextElementSibling.value = xhr.responseText;
+                    img.parentElement.previousElementSibling.style.display = "block";
+                    img.parentElement.style.display = "none";
+                    img.parentElement.nextElementSibling.style.display = "block";
+
+                    img.parentElement.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.value = xhr.responseText;
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
 
 
         //==================================== pic3  (edit part) =======================================
@@ -636,13 +935,6 @@ function showProduct(response) {
         img3.classList = "imgAddPreview";
         pic3.appendChild(img3);
 
-        /*
-        var addbtn3 = document.createElement("button");
-        addbtn3.classList = "addbtn";
-        pic3.appendChild(addbtn3);
-        addbtn3.innerHTML = "Add Image"
-        */
-
         var label3 = document.createElement("label");
         label3.classList = "browse";
         pic3.appendChild(label3);
@@ -651,32 +943,133 @@ function showProduct(response) {
         inputFile3.type = "file";
         label3.appendChild(inputFile3);
 
+        var img3TempSrc = document.createElement("input");
+        img3TempSrc.type = "hidden";
+        img3TempSrc.name = "img3TempSrc";
+        label3.appendChild(img3TempSrc);
+
         var btnDiv3 = document.createElement("div");
         btnDiv3.classList = "btnDiv";
         pic3.appendChild(btnDiv3);
 
-        var chbtn3 = document.createElement("button");
-        //chbtn3.classList = "";
-        btnDiv3.appendChild(chbtn3);
-        chbtn3.innerHTML = "Change Image";
+        var labelChange3 = document.createElement("label");
+        labelChange3.classList = "browse-change";
+        btnDiv3.appendChild(labelChange3);
+
+        var inputChangeFile3 = document.createElement("input");
+        inputChangeFile3.type = "file";
+        inputChangeFile3.name = "img3Preview";
+        inputChangeFile3.class = "img3PreviewChange";
+        labelChange3.appendChild(inputChangeFile3);
+
+
+        var img3PreviewRemove = document.createElement("input");
+        img3PreviewRemove.type = "hidden";
+        img3PreviewRemove.name = "img3PreviewRemove";
+        labelChange3.appendChild(img3PreviewRemove);
 
         var rmbtn3 = document.createElement("button");
         //rmbtn3.classList = "";
         btnDiv3.appendChild(rmbtn3);
         rmbtn3.innerHTML = "Remove Image";
+        rmbtn3.type = "button";
 
         if (response[i].img3src !== null && response[i].img3src !== '') {
             img3.src = response[i].img3src;
             img3.style.display = "block";
             label3.style.display = "none";
             btnDiv3.style.display = "block";
+            img3TempSrc.value = response[i].img3src;
         } else if (response[i].img3src == '' || response[i].img3src == null) {
             img3.style.display = "none";
             label3.style.display = "block";
             btnDiv3.style.display = "none";
+            img3TempSrc.value = '';
         }
 
-        //==================================== set buttons (edit part) =======================================
+        // change preview
+
+        inputChangeFile3.addEventListener("change", (event) => {
+
+            let picDiv = event.target.parentElement.parentElement.parentElement;
+            let changeFile3 = event.target;
+            let files = event.target.files;
+            let file = files[0];
+
+            let formData = new FormData();
+            let removeImg = event.target.nextElementSibling.value;
+            formData.append('img1PreviewChange', file, file.name);
+            formData.append('img1PreviewRemove', removeImg);
+
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    picDiv.children[1].src = xhr.responseText;
+                    picDiv.children[2].children[1].value = xhr.responseText;
+                    changeFile3.nextElementSibling.value = xhr.responseText;
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
+
+        // remove preview
+
+        rmbtn3.addEventListener("click", (event) => {
+            event.target.style.color = "blue";
+            let removeImg = event.target.previousElementSibling.children[1].value;
+            let formData = new FormData();
+            formData.append('img3PreviewRemove', removeImg);
+
+            let rm = event.target;
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    rm.parentElement.previousElementSibling.firstElementChild.value = "";
+                    rm.parentElement.previousElementSibling.previousElementSibling.src = "";
+                    rm.parentElement.previousElementSibling.children[1].value = "";
+                    rm.parentElement.previousElementSibling.previousElementSibling.style.display = "none";
+                    rm.parentElement.previousElementSibling.style.display = "block";
+                    rm.parentElement.style.display = "none";
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
+
+        // add preview
+
+        inputFile3.addEventListener("change", function (event) {
+
+            let files = event.target.files;
+            let file = files[0];
+            let formData = new FormData();
+
+            formData.append('img3Preview', file, file.name);
+            let img = event.target;
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    img.parentElement.previousElementSibling.src = xhr.responseText;
+                    img.nextElementSibling.value = xhr.responseText;
+                    img.parentElement.previousElementSibling.style.display = "block";
+                    img.parentElement.style.display = "none";
+                    img.parentElement.nextElementSibling.style.display = "block";
+
+                    img.parentElement.nextElementSibling.firstElementChild.firstElementChild.nextElementSibling.value = xhr.responseText;
+                } else {
+                    document.write('err');
+                }
+            };
+            xhr.open('POST', 'imgPreview.php', true);
+            xhr.send(formData);
+        });
+
+        //==================================== set buttons (edit part) =======================================//
 
         var setDiv = document.createElement("div");
         setDiv.classList = "setDiv";
@@ -685,113 +1078,60 @@ function showProduct(response) {
         var editDiv = document.createElement("div");
         editDiv.classList = "editDiv";
         setDiv.appendChild(editDiv);
+        //============================ remove btn ============================//
 
         var rmbtn = document.createElement("button");
         rmbtn.classList = "rmbtn";
         editDiv.appendChild(rmbtn);
-        rmbtn.innerHTML = "Remove Product"
+        rmbtn.innerHTML = "Remove Product";
+        rmbtn.type = "button";
 
-        var saveDiv = document.createElement("div");
-        saveDiv.classList = "saveDiv";
-        setDiv.appendChild(saveDiv);
+        var hideWindow = document.createElement("div");
+        editDiv.appendChild(hideWindow);
+        hideWindow.classList = "hide-window";
 
-        var savebtn = document.createElement("button");
-        savebtn.classList = "savebtn";
-        savebtn.type = "button";
-        saveDiv.appendChild(savebtn);
-        savebtn.innerHTML = "Save Changes";
+        var question = document.createElement("div");
+        hideWindow.appendChild(question);
+        question.classList = "question";
+
+        var questionText = document.createTextNode("Are you sure to remove " + response[i].name + " ??!");
+        question.appendChild(questionText);
+
+        var nobtn = document.createElement("button");
+        question.appendChild(nobtn);
+        nobtn.innerHTML = "No";
+        nobtn.type = "button";
+
+        var yesbtn = document.createElement("button");
+        question.appendChild(yesbtn);
+        yesbtn.innerHTML = "Yes";
+        yesbtn.type = "button";
+
+        var rmSort = document.createElement("input");
+        question.appendChild(rmSort);
+        rmSort.type = "hidden";
+        rmSort.value = response[i].sort;
 
 
+        rmbtn.addEventListener("click", (event) => {
+            event.target.nextElementSibling.style.display = "block";
+        });
 
+        nobtn.addEventListener("click", (event) => {
+            event.target.parentElement.parentElement.style.display = "none";
+        });
 
+        yesbtn.addEventListener("click", (event) => {
 
-        savebtn.addEventListener("click", function () {
-
-            this.style.color = "blue";
-            this.nextElementSibling.style.color = "blue";
-
-
-            var editTable = this.parentElement.parentElement.parentElement.children[1].firstElementChild.children;
-
-            let productName = editTable[0].children[1].children[0].value;
-            let productSize = editTable[1].children[1].children[0].value;
-            let productPrice = editTable[2].children[1].children[0].value;
-            let productDetails = editTable[3].children[1].children[0].value;
-            let sort = editTable[4].children[1].children[0].value;
-
-            alert(editTable[0].children[1].children[0].value);
-            let activation;
-            if (activeInput.checked) { activation = 1; }
-            else if (deactiveInput.checked) { activation = 0; }
-            //let activation = document.querySelector("input[name='activation'][class='editActivation']:checked").value;
-
-            let addProductForm = this.parentElement.parentElement.parentElement.children;
-            let productId = addProductForm[0].value;;
-            let img1 = addProductForm[2].children[2].children[1].value;
-            //let img2 = addProductForm[3].children[2].children[1].value;
-            //let img3 = addProductForm[4].children[2].children[1].value;
-
+            let productId = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.firstElementChild.value
+            let rmSortValue = event.target.nextElementSibling.value;
             let formData = new FormData();
             formData.append('productId', productId);
-            formData.append('productName', productName);
-            formData.append('productSize', productSize);
-            formData.append('productPrice', productPrice);
-            formData.append('productDetails', productDetails);
-            formData.append('sort', sort);
-            formData.append('activation', activation);
-            formData.append('img1TempSrc', img1);
-            //formData.append('img2TempSrc', img2);
-            //formData.append('img3TempSrc', img3);
-
-
-
-
-
-            /*
-        let activation;
-        if (activeInput.checked) {activation = '1';}
-        if (deactiveInput.checked) {activation = '0';}
-        
-        let formData = new FormData();
-            formData.append('productId', productId.value);
-            formData.append('productName', productNameEditInput.value);
-            formData.append('productSize', productSizeEditInput.value);
-            formData.append('productPrice', productPriceEditInput.value);
-            formData.append('productDetails', productDetailsEditInput.value);
-            formData.append('sort', sortEdit.value);
-            formData.append('activation', activation);
-            formData.append('img1TempSrc', img1TempSrc.value);
-            
-           */
-            //formData.append('img2TempSrc', img2);
-            //formData.append('img3TempSrc', img3);
-
-            //let form = this.parentElement.parentElement.parentElement;
+            formData.append('rmSort', rmSortValue);
 
             let xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    alert('EDIT OK');
-
-                    messages.innerHTML = xhr.responseText;
-                    messages.style.display = "block";
-                    messages.style.color = "blue";
-                    /*
-                    form.reset();
-                    form.children[1].children[1].src='';
-                    form.children[1].children[1].style.display='none';
-                    form.children[1].children[2].style.display='block';
-                    form.children[1].children[3].style.display='none';
-
-                    form.children[2].children[1].src='';
-                    form.children[2].children[1].style.display='none';
-                    form.children[2].children[2].style.display='block';
-                    form.children[2].children[3].style.display='none';
-
-                    form.children[3].children[1].src='';
-                    form.children[3].children[1].style.display='none';
-                    form.children[3].children[2].style.display='block';
-                    form.children[3].children[3].style.display='none';
 
                     let timer = setInterval(func1, 5);
                     let counter = 0;
@@ -822,18 +1162,139 @@ function showProduct(response) {
                         }
                     }
 
-                    let response = JSON.parse(this.responseText);                            
-                    messages.style.color = "green";
-                    messages.innerHTML = response[0];
+                    messages.innerHTML = "Product Removed";
+                    messages.style.color = "red";
 
-                    var sortNumber = response[1];
+                    var sortNumber = xhr.responseText;
+                    sortNumber = +sortNumber;
+                    setSort(sortNumber);
+
+                    var showProduct = document.getElementById("showProduct");
+                    showProduct.innerHTML = "";
+                    getProducts();
+
+
+                } else {
+                    messages.style.display = "block";
+                    messages.style.color = "red";
+                    messages.innerHTML = 'err';
+                }
+            };
+
+            xhr.open('POST', 'delete.php', true);
+            xhr.send(formData);
+        });
+
+        //============================ save btn ============================//
+
+        var saveDiv = document.createElement("div");
+        saveDiv.classList = "saveDiv";
+        setDiv.appendChild(saveDiv);
+
+        var savebtn = document.createElement("button");
+        savebtn.classList = "savebtn";
+        savebtn.type = "button";
+        saveDiv.appendChild(savebtn);
+        savebtn.innerHTML = "Save Changes";
+
+        var oldSort = document.createElement("input");
+        saveDiv.appendChild(oldSort);
+        oldSort.type = "hidden";
+        oldSort.value = response[i].sort;
+
+        savebtn.addEventListener("click", function () {
+
+            var editTable = this.parentElement.parentElement.parentElement.children[1].firstElementChild.children;
+
+            let productName = editTable[0].children[1].children[0].value;
+            let productSize = editTable[1].children[1].children[0].value;
+            let productPrice = editTable[2].children[1].children[0].value;
+            let productDetails = editTable[3].children[1].children[0].value;
+            let sort = editTable[4].children[1].children[0].value;
+
+            //alert(editTable[0].children[1].children[0].value);
+            let activation;
+            if (deactiveInput.checked) { activation = '0'; }
+            else if (activeInput.checked) { activation = '1'; }
+            //let activation = document.querySelector("input[name='activation'][class='editActivation']:checked").value;
+
+            //alert(activation);
+
+            let addProductForm = this.parentElement.parentElement.parentElement.children;
+            let productId = addProductForm[0].value;;
+            let img1 = addProductForm[2].children[2].children[1].value;
+            let img2 = addProductForm[3].children[2].children[1].value;
+            let img3 = addProductForm[4].children[2].children[1].value;
+
+            let oldSortValue = this.nextElementSibling.value;
+
+            let formData = new FormData();
+            formData.append('productId', productId);
+            formData.append('productName', productName);
+            formData.append('productSize', productSize);
+            formData.append('productPrice', productPrice);
+            formData.append('productDetails', productDetails);
+            formData.append('sort', sort);
+            formData.append('activation', activation);
+            formData.append('img1TempSrc', img1);
+            formData.append('img2TempSrc', img2);
+            formData.append('img3TempSrc', img3);
+            formData.append('oldsort', oldSortValue);
+
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    //alert('EDIT OK');
+
+                    //messages.innerHTML = xhr.responseText;
+                    //messages.style.display = "block";
+                    // messages.style.color = "blue";
+
+                    
+
+                    let timer = setInterval(func1, 5);
+                    let counter = 0;
+
+                    function func1() {
+                        if (counter == 100) {
+                            clearInterval(timer);
+                            setTimeout(func2, 3000);
+
+                            function func2() {
+                                let timer1 = setInterval(func3, 3);
+                                let counter1 = 100;
+
+                                function func3() {
+                                    if (counter1 == 0) {
+                                        clearInterval(timer1);
+                                        messages.style.display = "none"
+                                    } else {
+                                        counter1--;
+                                        messages.style.opacity = counter1 / 100;
+                                    }
+                                }
+                            }
+                        } else {
+                            counter++;
+                            messages.style.display = "block"
+                            messages.style.opacity = counter / 100;
+                        }
+                    }
+                    
+
+                    //let response = JSON.parse(this.responseText);                            
+                    messages.style.color = "orange";
+                    messages.innerHTML = "Product Edited";
+                   // messages.innerHTML = xhr.responseText;
+
+                    var sortNumber = xhr.responseText;
                     sortNumber = +sortNumber;
                     setSort(sortNumber);
 
                     var showProduct = document.getElementById("showProduct");
                     showProduct.innerHTML= "";
                     getProducts();
-                    */
+                    
 
                 } else {
                     messages.style.display = "block";
@@ -847,26 +1308,20 @@ function showProduct(response) {
 
         });
 
+        //============================ cancle btn ============================//
+
         var cancelbtn = document.createElement("button");
         cancelbtn.classList = "cancelbtn";
         saveDiv.appendChild(cancelbtn);
         cancelbtn.innerHTML = "Cancel";
+        cancelbtn.type = "button";
+
+        cancelbtn.addEventListener("click", (event) => {
+            event.target.style.color = "blue";
+            event.target.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+            event.target.parentElement.parentElement.parentElement.parentElement.previousElementSibling.style.display = "block";
+
+
+        });
     }
 }
-
-//====================================  set edit button =======================================//
-
-/*
-window.addEventListener("load",function(){
-    var editButton = document.getElementsByClassName("editbtn");
-for (var i=0;i<editButton.length;i++) {
-    editButton[i].addEventListener("click",function () {
-        this.style.color="blue";
-        alert("edit ok")
-        //this.parentElement.parentElement.parentElement.style.display="none";
-        //this.parentElement.parentElement.parentElement.nextElementSibling.style.display="block";
-    });
-}
-});
-*/
-
