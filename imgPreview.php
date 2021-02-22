@@ -18,9 +18,8 @@ if (isset($_FILES['img1Preview'])) {
 
 // change image
 if (isset($_FILES['img1PreviewChange']) && isset($_POST['img1PreviewRemove'])) {
-
-    $removeImg = $_POST['img1PreviewRemove'];
-    unlink($removeImg);
+    
+    if($_POST['img1PreviewRemove'] !== ''){unlink($_POST['img1PreviewRemove']);}
     
     $imgName = $_FILES['img1PreviewChange']['name'];
     $array = explode(".",$imgName );
@@ -35,7 +34,8 @@ if (isset($_FILES['img1PreviewChange']) && isset($_POST['img1PreviewRemove'])) {
 
 // remove image
 if (!isset($_FILES['img1PreviewChange']) && isset($_POST['img1PreviewRemove'])) {
-    unlink($_POST['img1PreviewRemove']);
+    
+    if($_POST['img1PreviewRemove'] !== ''){unlink($_POST['img1PreviewRemove']);}
 }
 
 //===================================  Image 2 preview  ===================================//
