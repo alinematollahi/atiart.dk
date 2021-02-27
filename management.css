@@ -17,6 +17,50 @@ body {
     display: none;
 }
 
+#management-start {
+height: 500px;
+}
+
+#addProduct , #showProducts , #manage-messages , #addProductBox {
+    display: none;
+}
+
+#addProductBox {
+    margin-top: 100px;
+}
+
+#addbtn {
+    font-size: 4vh;
+    display: block;
+    margin-top: 100px;
+}
+
+#addProductBtnDiv {
+    background-color: lightseagreen;
+    clear: both;
+}
+
+#statistics {
+    width: 90%;
+    margin: 50px auto;
+    background-color: lightcoral;
+}
+
+#statistics div {
+
+    /*float: left;*/
+    width: 25%;
+    box-sizing: border-box;
+    margin: 20px 4% 10px 4%;
+}
+
+#showProductsHeader {
+    text-align: center;
+    display: block;
+    font-size: 7vh;
+    margin: 100px auto 30px;
+}
+
 .productBox {
     width: 90%;
     height: 270px;
