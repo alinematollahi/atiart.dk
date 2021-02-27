@@ -10,9 +10,27 @@
 
 <body>
     <div id="messages"></div>
-    <div>
+    <div id="management-start">
+        <div class="management-start-txt"> Welcome to AtiArt Management Part</div>
+        <div class="management-start-btn">
+            <button id="select-products" type="button">Manage Products</button>
+        </div>
+        <div class="management-start-btn">
+        <button id="select-messages" type="button">Manage Messages</button>
+        </div>   
+    </div>
 
-        <div class="productBox">
+    <div id="addProduct">
+        <!--<button id="backToManageHome" type="button"> Back to Management Home </button>-->
+        <div id="statistics">
+            <div>Total Products Number</div>
+            <div>Active Products Number</div>
+            <div>Deactive Products Number</div>
+        </div>
+        <div id="addProductBtnDiv">
+            <button id="addBtn" type="button">Add New Product</button>
+        </div>
+        <div id="addProductBox" class="productBox">
             <form class="addProductForm" method="POST" enctype="multipart/form-data">
                 <div class="tableDiv">
                     <table>
@@ -122,7 +140,7 @@
                 <div class="setDiv">
                     <div class="saveDiv">
                         <button class="savebtn" type="button">Save Changes</button>
-                        <button class="cancelbtn" type="button">Cancel</button>
+                        <button id="cancelAddProduct" class="cancelbtn" type="button">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -131,7 +149,10 @@
 
     </div>
 
-    <div id="showProduct"></div>
+    <div id="showProducts">
+        <span id="showProductsHeader"> Product List </span>
+    </div>
+    <div id="manage-messages"></div>
 
 <script>
 //=============================================== Add preview image ===============================================//    
@@ -517,6 +538,7 @@
 </script>
 
 <script src="showProducts.js"></script>
+<script src="managementStart.js"></script>
 
 </body>
 
