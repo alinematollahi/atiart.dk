@@ -1,0 +1,613 @@
+body {
+    margin: 0;
+    font-family: Segoe Print;
+}
+
+#home-header , #homePage , #shopPage , #aboutPage , #contactPage , #cartPage , #sample-container {
+    display: none;
+}
+
+#slider {
+    width: 100%;
+    height: 60vh;
+    background: url("pictures/1.jpg");
+    background-size: 100% 60vh;
+    font-family: Matura MT Script Capitals;
+    font-size: 25vh;
+    padding-top: 30vh;
+    box-sizing: border-box;
+    color: rgb(23, 25, 54);
+    text-shadow: lightblue 10px 3px 20px;
+}
+
+#menu {
+    display: block;
+    width: 100%;
+    height: 5vh;
+    background-color: rgba(255, 255, 255, 0.4);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    margin: 3vh auto;
+}
+
+#menu button {
+    text-decoration: none;
+    display: block;
+    float: left;
+    width: 15%;
+    height: 5vh;
+    text-align: center;
+    text-transform: uppercase;
+    margin: auto 2.5%;
+    background-color: rgba(196, 194, 201, 0.8);
+    font-size: 3vh;
+    border-radius: 5vh;
+    color: rgb(114, 173, 173);
+    box-sizing: border-box;
+    font-family: inherit;
+    border: none;
+}
+
+#menu button:hover {
+    font-size: 4vh;
+    height: 7vh;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+
+#menu button:focus {
+    outline: none;
+}
+
+#content-part1 {
+    width: 50%;
+    margin: 10vh auto;
+    text-align: justify;
+    font-size: 5vh;
+    font-family: Segoe Print;
+    
+}
+
+#content-part1::first-line {
+    font-size: 10vh; 
+    font-family: Matura MT Script Capitals;
+}
+
+#content-part2 , #shopPage {
+    width: 100%;
+    /*display: flex;*/
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: auto;
+}
+
+.sample {
+    width: 400px;
+    height: 400px;
+    margin: 20px auto;
+    background-color: white;
+    background-size: contain;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5%;
+}
+
+.sample:hover {
+    cursor: pointer;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+
+
+.link {
+    display: block;
+    background-color: transparent;
+    width: 400px;
+    height: 300px;
+}
+
+.detail {
+    width: 400px;
+    height: 100px;
+    /*background-color: rgba(255, 255, 255, 0.5);*/
+    background-color: lightcoral;
+    visibility: hidden;
+    font-size: 3vh;
+    color: rgb(114, 173, 173);
+    box-sizing: border-box;
+    padding: 5px 20px;
+    position: relative;
+    top: 300px;
+}
+
+.sample:hover .detail {
+    visibility: visible;
+}
+
+.sample button {
+    display: block;
+    width: 250px;
+    height: 5vh;
+    margin: 1vh auto;
+    background-color: rgb(196, 194, 201);
+    border: none;
+    border-radius: 5vh;
+    color: white;
+    
+}
+button:hover {
+    cursor: pointer;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+button:focus {
+    outline: none;
+}
+
+#content-tail a
+{
+    width:20vw;
+    height: 7vh;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    margin: 5vh auto;
+    background-color: rgba(196, 194, 201, 0.8);
+    font-size: 4vh;
+    border-radius: 7vh;
+    color: rgb(114, 173, 173);
+    box-sizing: border-box;
+}
+
+#content-tail a:hover {
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+
+
+/*================================================= contact page =================================================*/
+
+#contact-part1 {
+    font-size: 5vmax;
+    text-align: center;
+}
+
+#contact-part2 {
+    float: left;
+    width: 45%;
+    height: 400px;
+    font-size: 2vmax; 
+    margin: 0;
+}
+
+#contact-part2 li {
+    list-style-type: none;
+}
+
+#contact-part2 a {
+    text-decoration: none;
+}
+
+#contact-part2 a:visited {
+    color: black;
+}
+#contact-part2 a:hover {
+     color: rgb(84, 84, 146); 
+}
+
+#contact-part3 {
+    float: left;
+    width: 55%;
+    height: 400px;
+    font-size: 2vmax;
+    margin: 0;
+    box-sizing: border-box;
+    padding-top: 20px;
+}
+#contact-part3 div {
+    margin-left: 20px ;
+    margin-top: 10px;
+    box-sizing: border-box;
+    
+}
+
+#contact-part3 textarea , #contact-part3 input {
+    width: 45%;
+    font-family: Segoe Print ;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: solid 0.5px rgb(176, 156, 194);
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 5px 0 rgba(0, 0, 0, 0.19);
+    
+    padding-left: 10px;
+}
+#contact-part3 input[type="submit"] {
+    width: auto;
+}
+#contact-part3 textarea:focus ,
+#contact-part3 input:focus {
+    outline: none;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 5px 0 rgba(27, 188, 236, 0.4);    
+}
+
+/*
+.required::after {
+    content :"*";
+    color : red;
+    font-size: 3vh;
+    padding: 20px;
+    margin-bottom: 0;
+}
+*/
+/*
+#contact-part3 input[type="text"]::after ,
+#contact-part3 input[type="email"]::after ,
+#contact-part3 textarea::after , {
+    content : "*";
+    color : red;
+}
+*/
+
+
+/*================================================= sample pages =================================================*/
+
+#sample-container {
+    width: 96vw;
+    height: 40vw;
+   margin: 5vh auto;
+    
+}
+
+#sample-part1 {
+    float: left;
+    width: 15vw;
+    height: 40vw;
+    margin: 0 1vw;
+
+}
+
+.sample-part1-inside {
+    width: 8vw;
+    height: 8vw;
+    margin: 1vw auto;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5%;
+}
+
+.sample-part1-inside:hover {
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(27, 188, 236, 0.4);
+    cursor: pointer;
+    width: 8.5vw;
+    height: 8.5vw;
+}
+
+#sample-part1 div:first-child {
+    margin-top: 0;
+}
+
+/*
+
+#sample-part1-1 {
+    display: flex;
+    width: 90%;
+    height: 20vh;
+    margin: 0 auto;
+    background-color: rgb(255, 80, 232);
+}
+
+#sample-part1-2 {
+    
+    width: 90%;
+    height: 60vh;
+    margin: 0 auto;
+    background-color: rgb(121, 255, 80);
+}
+
+*/
+
+#sample-part2 {
+    float: left;
+    width: 40vw;
+    height: 40vw;
+    margin: 0 1vw;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5%;
+    background: no-repeat center;
+    background-size: contain;
+}
+
+#sample-part3 {
+    float: left;
+    width: 35vw;
+    height: 40vw;
+    margin: 0 1vw;
+    
+}
+
+#sample-part3 table {
+border: none;
+border-collapse: collapse;
+margin: 15vw auto 5vw;
+/*
+box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 15px;  
+    */
+}
+#sample-part3 table:hover {
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(27, 188, 236, 0.4);
+}
+
+#sample-part3 td {
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
+
+.col1 {
+    width: 10vw;
+    height: 3vw ;
+    text-align: center;
+}
+.col2 {
+    width: 20vw ;
+    height: 3vw ;
+    text-align: center;
+}
+
+#sample-part3 button {
+    display: block;
+    width: 20vw;
+    height: 5vw;
+    margin: 0 auto;
+    background-color: rgb(196, 194, 201);
+    border: none;
+    border-radius: 5vw;
+    color: white;
+    font-family: inherit;
+    font-size: 2vw;
+}
+
+#sample-part3 button:hover {
+    box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(27, 188, 236, 0.4); 
+}
+
+
+/*================================================= cart page =================================================*/
+
+.cart-box {
+    float: left;
+    width: 50%;
+    height: 200px;
+    margin: 20px 5%;
+    /*background-color: lightblue;*/
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+.cart-box-part1 {
+    float: left;
+    width: 8vw;
+    height: 8vw;
+    margin: 30px 2.5% auto;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5%;
+}
+
+.cart-box-part1:hover {
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(27, 188, 236, 0.4);
+    cursor: pointer;
+    width: 8.5vw;
+    height: 8.5vw;
+}
+
+.cart-box-part2 {
+    float: left;
+    width: 45%;
+    height: 200px;
+    /*background-color: lightgreen;*/
+    margin: auto 2.5%;
+}
+
+.cart-box-part2-table1 {
+    width: 100%;
+    border: none;
+    border-collapse: collapse;
+    margin: 30px auto auto 0;
+}
+
+.cart-box-part2 td {
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
+
+.cart-box-part2-table1-col1 {
+    width: 35%;
+    text-align: center;
+}
+
+.cart-box-part2-table1-col2 {
+    width: 65%;
+    text-align: center;
+}
+
+.cart-box-part2-table2 {
+    float: left;
+    width: 70%;
+    border: none;
+    margin-top: 20%;
+}
+
+.cart-box-part2-table2-col1 {
+    width: 35%;
+    text-align: center;
+}
+
+.cart-box-part2-table2-col2 {
+    width: 35%;
+    text-align: center;
+}
+
+.quantity {
+    width: 100%;
+    border: none;
+    /*
+    margin-top: 20%;
+    margin-left: 5%;
+    
+    
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    */
+    font-family: Segoe Print;
+    text-align: center;
+}
+
+.cart-box-part3 {
+    float: left;
+    width: 20%;
+    height: 200px;
+    /*background-color: rgb(69, 71, 148);*/
+    margin: auto 2.5%;
+    box-sizing: border-box;
+    padding-top: 80px;
+    text-align: center;
+    font-size: 4vmin;
+}
+
+.cart-box-part4 {
+    display: inline-block;
+    position: relative;
+    right: 0;
+}
+
+.cart-box-part4:hover {
+    cursor: pointer;
+    font-size: 2vw;
+}
+
+
+
+#invoice {
+    float: left;
+    width: 35%;
+    height: 80vh;
+    margin: 20px auto;
+    box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 10px;
+}
+
+#invoice h2 {
+    text-align: center;
+}
+
+#invoice table {
+    width: 80%;
+    border: none;
+    border-collapse: collapse;
+    margin: 10vh auto;
+}
+
+#invoice table td {
+    width: 40%;
+    text-align: center;
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+}
+
+
+#invoice button {
+    display: block;
+    width: 60%;
+    margin: 0 auto;
+    border: none;
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    font-family: Segoe Print;
+    font-size: 3vmin;
+}
+
+#invoice button:hover {
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(27, 188, 236, 0.4);
+}
+#invoice button:focus {
+    outline: none;
+}
+
+#total {
+    font-size: 5vmin;
+}
+
+
+/*================================================= footer =================================================*/
+
+#footer {
+    width: 100%;
+    background-color: rgba(20, 20, 30, 0.8);
+    height: 500px;
+    clear: both;
+}
+
+#footer>div {
+    float: left;
+    width: 27%;
+    margin: 10vh 3%;
+    text-align: justify;
+    color: rgb(231, 241, 241);
+    font-size: 2vmax;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+#footer>div::first-line {
+    font-size: 2.5vmax;
+    color: rgb(84, 84, 146);
+}
+
+#footer>div a {
+    text-decoration: none;
+    color: rgb(231, 241, 241);
+}
+#footer>div a:hover {
+    color: rgb(84, 84, 146); 
+}
