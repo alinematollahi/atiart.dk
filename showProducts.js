@@ -80,10 +80,10 @@ function showProduct(response) {
     //alert('show ok');
     for (let i = 0; i < response.length; i++) {
 
-        var showProduct = document.getElementById("showProduct");
+        var showProducts = document.getElementById("showProducts");
         var productBox = document.createElement("div");
         productBox.classList = "productBox";
-        showProduct.appendChild(productBox);
+        showProducts.appendChild(productBox);
 
         //====================================table=======================================
 
@@ -376,7 +376,7 @@ function showProduct(response) {
 
         var editProductBox = document.createElement("div");
         editProductBox.classList = "edit-productBox";
-        showProduct.appendChild(editProductBox);
+        showProducts.appendChild(editProductBox);
         var editForm = document.createElement("form");
         editProductBox.appendChild(editForm);
         editForm.method = "POST";
