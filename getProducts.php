@@ -10,7 +10,6 @@
       // get products befor add to set sort
     
       $stmt = $conn->prepare("SELECT * FROM products  ORDER BY sort");
-      //$stmt->bindValue(1,'1');
             
       $stmt->execute();
       $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
