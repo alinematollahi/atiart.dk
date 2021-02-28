@@ -106,20 +106,6 @@ try {
     $activeProductNumber = count($result03);
 
     echo $activeProductNumber ;
-    //echo $result01[$i]['sort'] ;//.' < '.$oldsort.' && '.$result01[$i]['sort'].' >= '.$sort;
-    //echo 'oldsort: '.$_POST['oldsort'];
-    /*
-    echo $_POST['productId'].'<br>';
-    echo $_POST['productName'].'<br>';
-    echo $_POST['productSize'].'<br>';
-    echo $_POST['productPrice'].'<br>';
-    echo $_POST['productDetails'].'<br>';
-    echo $_POST['sort'].'<br>';
-    echo $_POST['activation'].'<br>';
-    echo $_POST['img1TempSrc'].'<br>';
-    echo $_POST['img2TempSrc'].'<br>';
-    echo $_POST['img3TempSrc'].'<br>';
-    */
 } 
 catch(PDOException $e) {
   echo $e->getMessage();
