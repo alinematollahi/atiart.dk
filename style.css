@@ -3,7 +3,7 @@ body {
     font-family: Segoe Print;
 }
 
-#home-header , #homePage , #shopPage , #aboutPage , #contactPage , #cartPage , #sample-container {
+#shopPage , #aboutPage , #contactPage , #cartPage , #sample-container {
     display: none;
 }
 
@@ -75,12 +75,27 @@ body {
     font-family: Matura MT Script Capitals;
 }
 
-#content-part2 , #shopPage {
+#shopPage {
     width: 100%;
     /*display: flex;*/
     flex-direction: row;
     flex-wrap: wrap;
     height: auto;
+}
+
+#homePage h2 {
+    text-align: center;
+    font-weight: bolder;
+    color: rgb(60, 49, 68);
+    font-size: 8vh;
+}
+
+#content-part2 {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: auto;   
 }
 
 .sample {
@@ -113,15 +128,20 @@ body {
 .detail {
     width: 400px;
     height: 100px;
-    /*background-color: rgba(255, 255, 255, 0.5);*/
-    background-color: lightcoral;
+    background-color: rgba(255, 255, 255, 0.5);
     visibility: hidden;
     font-size: 3vh;
-    color: rgb(114, 173, 173);
+    color: rgb(23, 63, 63);
     box-sizing: border-box;
     padding: 5px 20px;
     position: relative;
     top: 300px;
+    border-radius: 20px;
+}
+
+#content-part2 .detail{
+    height: 50px;
+    top: 350px;
 }
 
 .sample:hover .detail {
@@ -132,12 +152,13 @@ body {
     display: block;
     width: 250px;
     height: 5vh;
-    margin: 1vh auto;
-    background-color: rgb(196, 194, 201);
+    margin: 2vh auto;
+    background-color: rgb(101, 100, 104);
     border: none;
     border-radius: 5vh;
     color: white;
-    
+    font-family: inherit;
+    font-weight: bold;
 }
 button:hover {
     cursor: pointer;
@@ -149,8 +170,7 @@ button:focus {
     outline: none;
 }
 
-#content-tail a
-{
+#content-tail button {
     width:20vw;
     height: 7vh;
     text-decoration: none;
@@ -159,17 +179,18 @@ button:focus {
     margin: 5vh auto;
     background-color: rgba(196, 194, 201, 0.8);
     font-size: 4vh;
+    font-family: inherit;
+    border: none;
     border-radius: 7vh;
     color: rgb(114, 173, 173);
     box-sizing: border-box;
 }
 
-#content-tail a:hover {
+#content-tail button:hover {
     box-shadow:
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(27, 188, 236, 0.4);
 }
-
 
 /*================================================= contact page =================================================*/
 
@@ -239,25 +260,6 @@ button:focus {
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 5px 0 rgba(27, 188, 236, 0.4);    
 }
-
-/*
-.required::after {
-    content :"*";
-    color : red;
-    font-size: 3vh;
-    padding: 20px;
-    margin-bottom: 0;
-}
-*/
-/*
-#contact-part3 input[type="text"]::after ,
-#contact-part3 input[type="email"]::after ,
-#contact-part3 textarea::after , {
-    content : "*";
-    color : red;
-}
-*/
-
 
 /*================================================= sample pages =================================================*/
 
@@ -343,13 +345,7 @@ button:focus {
 #sample-part3 table {
 border: none;
 border-collapse: collapse;
-margin: 15vw auto 5vw;
-/*
-box-shadow:
-        0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 15px;  
-    */
+margin: 8vw auto 5vw;
 }
 #sample-part3 table:hover {
     box-shadow:
@@ -377,9 +373,9 @@ box-shadow:
 
 #sample-part3 button {
     display: block;
-    width: 20vw;
-    height: 5vw;
-    margin: 0 auto;
+    width: 25vw;
+    height: 4vw;
+    margin: 1vh auto;
     background-color: rgb(196, 194, 201);
     border: none;
     border-radius: 5vw;
@@ -396,13 +392,16 @@ box-shadow:
 
 
 /*================================================= cart page =================================================*/
+#cart-box-container {
+    float: right;
+    width: 50%;
+}
 
 .cart-box {
     float: left;
-    width: 50%;
+    width: 100%;
     height: 200px;
-    margin: 20px 5%;
-    /*background-color: lightblue;*/
+    margin: 20px auto;
     box-shadow:
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -518,17 +517,15 @@ box-shadow:
     font-size: 2vw;
 }
 
-
-
 #invoice {
-    float: left;
+    float: right;
     width: 35%;
     height: 80vh;
-    margin: 20px auto;
+    margin: 20px 2.5%;
     box-shadow:
         0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 10px;
+    border-radius: 10px;    
 }
 
 #invoice h2 {
@@ -550,7 +547,6 @@ box-shadow:
         0 3px 10px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px;
 }
-
 
 #invoice button {
     display: block;
@@ -574,8 +570,49 @@ box-shadow:
     outline: none;
 }
 
-#total {
+#total-topic {
     font-size: 5vmin;
+}
+
+#hide-window {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(19, 17, 17, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+
+.question {
+    width: 40vw;
+    height: 40vh;
+    margin: 30vh auto;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding-top: 10vh;
+    text-align: center;
+}
+
+.question button {
+    width: 20vw;
+    margin: 4vh auto;
+    display: block;
+    background-color: rgb(156, 154, 160);
+    border: none;
+    border-radius: 5vw;
+    color: white;
+    font-size: 3vh;
+    font-family: inherit;
+}
+
+#addedText , #existText {
+    font-size: 3vh;
+    display: none;
+    color: green;
 }
 
 
@@ -610,4 +647,9 @@ box-shadow:
 }
 #footer>div a:hover {
     color: rgb(84, 84, 146); 
+}
+
+/*================================================= more =================================================*/
+#aboutPage li {
+font-size: 4vh;
 }
