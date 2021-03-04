@@ -37,6 +37,7 @@ var bigPicture = document.getElementById("sample-part2");
 
 // more
 var homeSeeMoreBtn = document.getElementById("homeSeeMoreBtn");
+var pageBackground = document.getElementById("pageBackground");
 
 
 //================================ move between pages ================================//
@@ -50,6 +51,9 @@ homePageBtn.addEventListener("click", () => {
     contactPage.style.display = "none";
     cartPage.style.display = "none";
     sampleContainer.style.display = "none";
+
+    pageBackground.style.background = 'url("pictures/l.jpg") no-repeat center fixed';
+    pageBackground.style.backgroundSize = 'cover';
 });
 
 shopPageBtn.addEventListener("click", () => {
@@ -61,6 +65,9 @@ shopPageBtn.addEventListener("click", () => {
     contactPage.style.display = "none";
     cartPage.style.display = "none";
     sampleContainer.style.display = "none";
+
+    pageBackground.style.background = 'url("pictures/k.jpg") no-repeat center fixed';
+    pageBackground.style.backgroundSize = 'cover';
 });
 
 aboutPageBtn.addEventListener("click", () => {
@@ -72,6 +79,9 @@ aboutPageBtn.addEventListener("click", () => {
     contactPage.style.display = "none";
     cartPage.style.display = "none";
     sampleContainer.style.display = "none";
+
+    pageBackground.style.background = 'url("pictures/r.jpg") no-repeat center fixed';
+    pageBackground.style.backgroundSize = 'cover';
 });
 
 contactPageBtn.addEventListener("click", () => {
@@ -83,6 +93,9 @@ contactPageBtn.addEventListener("click", () => {
     aboutPage.style.display = "none";
     cartPage.style.display = "none";
     sampleContainer.style.display = "none";
+
+    pageBackground.style.background = 'url("pictures/l.jpg") no-repeat center fixed';
+    pageBackground.style.backgroundSize = 'cover';
 });
 
 cartPageBtn.addEventListener("click", () => {
@@ -94,6 +107,9 @@ cartPageBtn.addEventListener("click", () => {
     aboutPage.style.display = "none";
     contactPage.style.display = "none";
     sampleContainer.style.display = "none";
+
+    pageBackground.style.background = 'url("pictures/a.jpg") no-repeat center fixed';
+    pageBackground.style.backgroundSize = 'cover';
 });
 
 ReturntoShopPageBtn.addEventListener("click", () => {
@@ -105,6 +121,7 @@ ReturntoShopPageBtn.addEventListener("click", () => {
     contactPage.style.display = "none";
     cartPage.style.display = "none";
     sampleContainer.style.display = "none";
+
 });
 
 homeSeeMoreBtn.addEventListener("click", () => {
@@ -251,11 +268,18 @@ function getProducts() {
                     productBox.appendChild(detailBox);
                     detailBox.classList = "detail";
 
-                    let detailNode = document.createTextNode(
-                        "Price : " + response[i].price + " DKK , "+
+                    let detailNode1 = document.createTextNode(
+                        "Price : " + response[i].price + " DKK"
+                    );
+                    detailBox.appendChild(detailNode1);
+
+                    let linebreak = document.createElement("br");
+                    detailBox.appendChild(linebreak);
+
+                    let detailNode2 = document.createTextNode(
                         "Size : " + response[i].size
                     );
-                    detailBox.appendChild(detailNode);
+                    detailBox.appendChild(detailNode2);
 
                     let addToCartBtn = document.createElement("button");
                     addToCartBtn.innerHTML = "Add to Cart";
@@ -387,11 +411,18 @@ function getProducts() {
                     productBox.appendChild(detailBox);
                     detailBox.classList = "detail";
 
-                    let detailNode = document.createTextNode(
-                        "Price : " + response[i].price + " DKK , "+
+                    let detailNode1 = document.createTextNode(
+                        "Price : " + response[i].price + " DKK"
+                    );
+                    detailBox.appendChild(detailNode1);
+
+                    let linebreak = document.createElement("br");
+                    detailBox.appendChild(linebreak);
+
+                    let detailNode2 = document.createTextNode(
                         "Size : " + response[i].size
                     );
-                    detailBox.appendChild(detailNode);
+                    detailBox.appendChild(detailNode2);
                 }
             }
         } else {
@@ -732,4 +763,72 @@ function addToCart(event) {
            existText.style.display = "none";
     }
 }
+
+//================================ set contact form ================================//
+
+var formSubmitBtn =contactForm["formSubmitBtn"];
+
+formSubmitBtn.addEventListener("click",()=>{
+
+    var userName = document.getElementById("userName").value;
+    var userEmail = document.getElementById("userEmail").value;
+    var userMessage = document.getElementById("userMessage").value;
+    var contactForm = document.getElementById("contactForm");
+    var confirmation = document.getElementById("confirmation");
+
+    let date = new Date().toLocaleDateString();
+    let time = new Date().toLocaleTimeString();
+
+    let formData = new FormData();
+
+    formData.append('date', date);
+    formData.append('time', time);
+    formData.append('userName', userName);
+    formData.append('userEmail', userEmail);
+    formData.append('userMessage', userMessage);
+
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+        if (xhr.status == 200) {
+            contactForm.reset();
+
+            let timer = setInterval(func1, 5);
+                    let counter = 0;
+
+                    function func1() {
+                        if (counter == 100) {
+                            clearInterval(timer);
+                            setTimeout(func2, 3000);
+
+                            function func2() {
+                                let timer1 = setInterval(func3, 3);
+                                let counter1 = 100;
+
+                                function func3() {
+                                    if (counter1 == 0) {
+                                        clearInterval(timer1);
+                                        confirmation.style.display = "none"
+                                    } else {
+                                        counter1--;
+                                        confirmation.style.opacity = counter1 / 100;
+                                    }
+                                }
+                            }
+                        } else {
+                            counter++;
+                            confirmation.style.display = "block"
+                            confirmation.style.opacity = counter / 100;
+                        }
+                    }
+
+                    confirmation.innerHTML = "Your Message Sent";
+                    confirmation.style.color = "green";
+        } else {
+ 
+        }
+    };
+
+    xhr.open('POST', 'getMessage.php', true);
+    xhr.send(formData);     
+});
 
