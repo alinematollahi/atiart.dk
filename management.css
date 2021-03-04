@@ -3,6 +3,11 @@ body {
     font-family: Segoe Print;
 }
 
+#pageBackground {
+    background:  url("pictures/r.jpg") no-repeat center fixed;
+    background-size: cover;  
+}
+
 #messages {
     width: 100%;
     height: 10vh;
@@ -25,6 +30,30 @@ height: 500px;
     display: none;
 }
 
+.management-start-txt {
+    text-align: center;
+    margin: 100px auto;
+    font-size: 9vh;
+    color: rgb(153, 28, 28);
+}
+
+.management-start-btn {
+    float: left;
+    width: 50%;
+}
+
+.management-start-btn button {
+    font-size: 6vh;
+    background-color: rgb(83, 114, 114);
+}
+
+#addProduct-head {
+    text-align: center;
+    font-size: 8vh;
+    color: rgb(30, 44, 58);
+    margin-top: 50px;
+}
+
 #addProductBox {
     margin-top: 100px;
 }
@@ -36,22 +65,24 @@ height: 500px;
 }
 
 #addProductBtnDiv {
-    background-color: lightseagreen;
-    clear: both;
+    margin: 100px auto;
 }
 
 #statistics {
     width: 90%;
-    margin: 50px auto;
+    margin: 100px auto;
     background-color: lightcoral;
 }
 
 #statistics div {
 
-    /*float: left;*/
+    float: left;
+    background-color: lightblue;
     width: 25%;
     box-sizing: border-box;
-    margin: 20px 4% 10px 4%;
+    /*margin: 20px 4% 10px 4%;*/
+    margin-right: 3%;
+    margin-left: 3%;
 }
 
 #showProductsHeader {
@@ -69,6 +100,7 @@ height: 500px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
     margin: 10px auto;  
+    background-color: rgba(255, 255, 255, 0.75);
 }
 
 .pic {
@@ -94,8 +126,8 @@ height: 500px;
     margin: 5px auto;
 }
 .imgShowPreview {
-    height: 195px;
-    width: auto;
+    max-height: 195px;
+    max-width: 100%;
     display: block;
     margin: 5px auto;
 }
@@ -330,5 +362,47 @@ input[type="text"]:focus , select:focus {
     border-radius: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
     0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin: 10px auto; 
+    margin: 10px auto;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+/*====================================== messages page ============================================*/
+
+#manage-messages span {
+    display: block;
+    text-align: center;
+    font-size: 6vh;
+    color: rgb(85, 71, 94);
+    margin-top: 50px;
+}
+
+#messageTable {
+    width: 95%;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.date , .time , .user-name {
+    width: 12%;
+}
+
+.user-email {
+    width: 17%;
+}
+
+.message-txt {
+    width: 40%;
+}
+
+.remove-message {
+    width: 7%;
+}
+.remove-message:hover {
+    cursor: pointer;
+    color: red;
+}
+
+#remove-header {
+    cursor: auto;
+    color: inherit;
 }
