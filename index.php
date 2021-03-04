@@ -1,4 +1,4 @@
-<html lang="en">
+<html lang="en" id="pageBackground">
 
 <head>
     <meta charset="UTF-8">
@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div id="home-header"></div>
+    
 
     <div id="menu">
         <button id="homePageBtn" type="button">Home</button>
@@ -19,6 +19,8 @@
         <button id="contactPageBtn" type="button">Contact Us</button>
         <button id="cartPageBtn" type="button">Cart <i class="fas fa-shopping-cart"></i></button>
     </div>
+
+    <div id="home-header">AtiArt</div>
 
     <div id="homePage">
         <div id="content-part1">
@@ -82,18 +84,19 @@
             </ul>
         </div>
         <div id="contact-part3">
-            <form action="getmessage.php">
+            <form id="contactForm" method="POST">
                 <div class="required">
-                    <input type="text" placeholder="your Name" required id="i1" name="frm[userName]">
+                    <input type="text" placeholder="your Name" required id="userName" name="userName">
                 </div>
                 <div class="required">
-                    <input type="email" placeholder="your Email" required name="frm[userEmail]">
+                    <input type="email" placeholder="your Email" required id="userEmail" name="userEmail">
                 </div>
                 <div class="required">
-                    <textarea cols="30" rows="6" placeholder="your message" required name="frm[userMessage]"></textarea>
+                    <textarea cols="30" rows="6" placeholder="your message" required id="userMessage" name="userMessage"></textarea>
                 </div>
                 <div>
-                    <input type="submit" value="send message">
+                    <!--<input type="submit" value="send message">-->
+                    <button type="button" id="formSubmitBtn">Send Message</button>
                 </div>
             </form>
         </div>
@@ -231,6 +234,7 @@
             <button id="seeCart"> See the Cart </button>
         </div>
     </div>
+    <div id="confirmation"></div>
 
     <script src="script.js"></script>
 </body>
