@@ -1,17 +1,18 @@
-<html lang="en">
+<html lang="en" id="pageBackground">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="management.css">
-    <title>Document</title>
+    <script src="https://kit.fontawesome.com/6dba727b51.js" crossorigin="anonymous"></script>
+    <title>AtiArt-Management</title>
 </head>
 
 <body>
     <div id="messages"></div>
     <div id="management-start">
-        <div class="management-start-txt"> Welcome to AtiArt Management Part</div>
+        <div class="management-start-txt"> Welcome to AtiArt Management</div>
         <div class="management-start-btn">
             <button id="select-products" type="button">Manage Products</button>
         </div>
@@ -21,12 +22,13 @@
     </div>
 
     <div id="addProduct">
-        <!--<button id="backToManageHome" type="button"> Back to Management Home </button>-->
+        <div id="addProduct-head">Manage Products</div>
+        <!--<button id="backToManageHome" type="button"> Back to Management Home </button>
         <div id="statistics">
             <div>Total Products Number</div>
             <div>Active Products Number</div>
             <div>Deactive Products Number</div>
-        </div>
+        </div>-->
         <div id="addProductBtnDiv">
             <button id="addBtn" type="button">Add New Product</button>
         </div>
@@ -152,8 +154,21 @@
     <div id="showProducts">
         <span id="showProductsHeader"> Product List </span>
     </div>
-    <div id="manage-messages"></div>
+    <div id="manage-messages">
+        <span>Messages List</span>
+        <table id="messageTable">
+            <tr>
+                <td class="date">Date</td>
+                <td class="time">Time</td>
+                <td class="user-name">User Name</td>
+                <td class="user-email">User Email</td>
+                <td class="message-txt">Message</td>
+                <td class="remove-message" id="remove-header">Remove</td>
+            </tr>
+        </table>
+    </div>
 
+<script src="manageMessages.js"></script>
 <script>
 //=============================================== Add preview image ===============================================//    
 
@@ -517,8 +532,8 @@
                             sortNumber = +sortNumber;
                             setSort(sortNumber);
 
-                            var showProduct = document.getElementById("showProduct");
-                            showProduct.innerHTML= "";
+                            var showProducts = document.getElementById("showProducts");
+                            showProducts.innerHTML= "";
                             getProducts();
 
                         } else {
