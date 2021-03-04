@@ -1211,15 +1211,11 @@ function showProduct(response) {
             let productPrice = editTable[2].children[1].children[0].value;
             let productDetails = editTable[3].children[1].children[0].value;
             let sort = editTable[4].children[1].children[0].value;
-
-            //alert(editTable[0].children[1].children[0].value);
+          
             let activation;
             if (deactiveInput.checked) { activation = '0'; }
             else if (activeInput.checked) { activation = '1'; }
-            //let activation = document.querySelector("input[name='activation'][class='editActivation']:checked").value;
-
-            //alert(activation);
-
+           
             let addProductForm = this.parentElement.parentElement.parentElement.children;
             let productId = addProductForm[0].value;;
             let img1 = addProductForm[2].children[2].children[1].value;
@@ -1244,14 +1240,7 @@ function showProduct(response) {
             let xhr = new XMLHttpRequest();
             xhr.onload = function () {
                 if (xhr.status == 200) {
-                    //alert('EDIT OK');
-
-                    //messages.innerHTML = xhr.responseText;
-                    //messages.style.display = "block";
-                    // messages.style.color = "blue";
-
-                    
-
+                   
                     let timer = setInterval(func1, 5);
                     let counter = 0;
 
