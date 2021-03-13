@@ -11,6 +11,8 @@ You can access main page on `index.php` and management page on `management.php` 
 
 <img src="pictures/1.jpg" />
 
+<br/>
+
 On home page you can access some description about quilling art and see some sample products.
 
 <img src="pictures/2.jpg" />
@@ -31,3 +33,11 @@ and you can see the price and add them to cart or click on product and go to sam
 If you click on sample product on home page or shop page, you can see another sample images and add it to cart or return to shop page.
 
 <img src="pictures/5.JPG" />
+
+<br/>
+
+# Cart page
+On cart page you can see added products and invoice. Furthermore, you can change quantity or remove added product.
+
+<img src="pictures/8.jpg" />
+
