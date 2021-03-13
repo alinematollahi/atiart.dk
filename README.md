@@ -84,4 +84,12 @@ Admin can remove product by pushing "remove product" button (and confirmation), 
 
 <img src="pictures/11.jpg" />
 
+<br/>
+
+# Manage messages
+
+When user leave a message on contact page, the mesage storages in database, and admin can see messages on " Manage messages" part.
+
+<img src="pictures/13.jpg" />
+
 
