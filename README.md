@@ -62,7 +62,7 @@ You can access some information on the website footer.
 
 # Management part
 
-`management.php` works like a single page app too, that includes 'manage messages' part and 'manage products'.
+`management.php` works like a single page app too, that includes 'manage messages' part and "manage products".
 
 <img src="pictures/12.jpg" />
 
@@ -70,7 +70,13 @@ You can access some information on the website footer.
 
 # Manage products
 
-On 'manage products' page, admin can see all active and deactive products list, and he/she can add a new product by pushing 'Add New Product' button.
+On "manage products" page, admin can see all active and deactive products list and them details, like name, size, price, details, sort and activation.
+
+In addition, admin can add a new product by pushing "Add New Product" button. He/She can chose 3 images for product and see image preview without refreshing. Images 
 
 <img src="pictures/9.jpg" />
+
+<br/>
+
+Admin can remove product by pushing "remove product" button (and confirmation), or edit it by pushing "edit product" button. Admin can edit name, size, price, details, sort, activation and change images (or add new image if there was not eny image) , or remove images.
 
