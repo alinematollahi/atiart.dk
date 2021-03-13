@@ -57,3 +57,11 @@ You can access contact page by 'contact us' button on menu. on contact page you 
 You can access some information on the website footer.
 
 <img src="pictures/7.JPG" />
+
+<br/><br/><br/>
+
+# Management part
+
+`management.php` works like a single page app too, that includes 'manage messages' part and 'manage products'.
+
+<img src="pictures/12.jpg" />
