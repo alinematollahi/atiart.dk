@@ -65,3 +65,12 @@ You can access some information on the website footer.
 `management.php` works like a single page app too, that includes 'manage messages' part and 'manage products'.
 
 <img src="pictures/12.jpg" />
+
+<br/>
+
+# Manage products
+
+On 'manage products' page, admin can see all active and deactive products list, and he/she can add a new product by pushing 'Add New Product' button.
+
+<img src="pictures/9.jpg" />
+
