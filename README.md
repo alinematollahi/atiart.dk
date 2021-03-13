@@ -13,3 +13,9 @@ On home page you can access some description about quilling art and see some sam
 
 <img src="pictures/2.jpg" />
 
+# Shop page
+
+You can access shop page by shop button on menu. On shop page you access all active products
+and you can see the price and add them to cart or click on product and go to sample page and see another sample images.
+
+<img src="pictures/3.jpg" />
