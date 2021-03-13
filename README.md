@@ -1,13 +1,15 @@
 # atiart.dk
-This is an art store website and it's content management system.
+
+This project is an art store website and it's content management system.
+
+I utilized some technologies like HTML, CSS, JavaScript, PHP, MySQL and AJAX.
+
+Due to utilize AJAX, and SPA design, users have instant access to all parts without refreshing the page.
 
 You can access main page on `index.php` and management page on `management.php` .
 
 `index.php` works like a single page app and that includes home page, shop page, about page, contact page and cart page.
 
-I utilized some technologies like HTML, CSS, JavaScript, PHP, MySQL and AJAX.
-
-Due to utilize AJAX, and SPA design, users have instant access to all parts without refreshing the page.
 
 <br/>
 
