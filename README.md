@@ -24,4 +24,4 @@ and you can see the price and add them to cart or click on product and go to sam
 
 If you click on sample product on home page or shop page, you can see another sample images and add it to cart or return to shop page.
 
-<img src="pictures/5.jpg" />
+<img src="pictures/5.JPG" />
