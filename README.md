@@ -5,6 +5,10 @@ You can access main page on `index.php` and management page on `management.php` 
 
 `index.php` works like a single page app and that includes home page, shop page, about page, contact page and cart page.
 
+I utilized some technologies like HTML, CSS, JavaScript, PHP, MySQL and AJAX.
+
+Due to utilize AJAX, and SPA design, users have instant access to all parts without refreshing the page.
+
 <br/>
 
 # Home page
@@ -75,6 +79,8 @@ On "manage products" page, admin can see all active and deactive products list a
 <img src="pictures/9.jpg" />
 
 In addition, admin can add a new product by pushing "Add New Product" button, so a new box will open and He/She can set product items and chose 3 images for product and see image preview without refreshing. Images storage in temp directory, if admin pushes save button, images move to upload directory.
+
+The Sort item sets due to the active products, so if admin chose "deactive" option for the product, it has no sort and will not show for user. 
 
 <img src="pictures/10.jpg" />
 
