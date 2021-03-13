@@ -43,3 +43,10 @@ On cart page you can see added products and invoice. Furthermore, you can change
 
 <img src="pictures/8.jpg" />
 
+<br/>
+
+# Contact page
+
+You can access contact page by 'contact us' button on menu. on contact page you can see contact information and you can leave a message to website admin.
+
+<img src="pictures/4.JPG" />
