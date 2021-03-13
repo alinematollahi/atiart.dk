@@ -72,11 +72,16 @@ You can access some information on the website footer.
 
 On "manage products" page, admin can see all active and deactive products list and them details, like name, size, price, details, sort and activation.
 
-In addition, admin can add a new product by pushing "Add New Product" button. He/She can chose 3 images for product and see image preview without refreshing. Images 
-
 <img src="pictures/9.jpg" />
+
+In addition, admin can add a new product by pushing "Add New Product" button, so a new box will open and He/She can set product items and chose 3 images for product and see image preview without refreshing. Images storage in temp directory, if admin pushes save button, images move to upload directory.
+
+<img src="pictures/10.jpg" />
 
 <br/>
 
 Admin can remove product by pushing "remove product" button (and confirmation), or edit it by pushing "edit product" button. Admin can edit name, size, price, details, sort, activation and change images (or add new image if there was not eny image) , or remove images.
+
+<img src="pictures/11.jpg" />
+
 
