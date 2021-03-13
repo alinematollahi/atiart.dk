@@ -7,3 +7,4 @@ You can access main page on `index.php` and management page on `management.php` 
 
 # Home page
 
+<img src="pictures/1.jpg" />
