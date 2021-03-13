@@ -39,7 +39,7 @@ If you click on sample product on home page or shop page, you can see another sa
 # Cart page
 When you add product to cart, you can access to cart or continue shoping, furthermore, you can access cart page by top menu.
 
-On cart page you can see added products and invoice. Furthermore, you can change quantity or remove added product.
+On cart page you can see added products and invoice. Furthermore, you can change the quantity, remove the added product, or see the product again by ckicking on it's image.
 
 <img src="pictures/8.jpg" />
 
@@ -50,3 +50,10 @@ On cart page you can see added products and invoice. Furthermore, you can change
 You can access contact page by 'contact us' button on menu. on contact page you can see contact information and you can leave a message to website admin.
 
 <img src="pictures/4.JPG" />
+
+<br/>
+
+# Footer
+You can access some information on the website footer.
+
+<img src="pictures/7.JPG" />
