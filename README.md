@@ -19,3 +19,9 @@ You can access shop page by shop button on menu. On shop page you access all act
 and you can see the price and add them to cart or click on product and go to sample page and see another sample images.
 
 <img src="pictures/3.jpg" />
+
+# Sample page
+
+If you click on sample product on home page or shop page, you can see another sample images and add it to cart or return to shop page.
+
+<img src="pictures/5.jpg" />
