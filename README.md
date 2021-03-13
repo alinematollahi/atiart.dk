@@ -37,6 +37,8 @@ If you click on sample product on home page or shop page, you can see another sa
 <br/>
 
 # Cart page
+When you add product to cart, you can access to cart or continue shoping, furthermore, you can access cart page by top menu.
+
 On cart page you can see added products and invoice. Furthermore, you can change quantity or remove added product.
 
 <img src="pictures/8.jpg" />
