@@ -12,7 +12,7 @@ You can access main page on `index.php` and management page on `management.php` 
 
 This video shows the performance of the website:
 
-<video><source src="pictures/2.mp4" type="video/mp4"></video>
+<video width="820" height="740"><source src="pictures/2.mp4" type="video/mp4"></video>
 
 
 <br/>
