@@ -491,7 +491,10 @@ function addToCart(event) {
     let id = event.target.parentElement.parentElement.children[7];
     let continueFunc = true;
     for( x in cartProductIDs){
-        if (id.value == cartProductIDs[x].value){ continueFunc = false; alert(cartProductIDs[x].value);}
+        if (id.value == cartProductIDs[x].value){ 
+            continueFunc = false;
+             //alert(cartProductIDs[x].value);
+        }
     }
 
     if ( continueFunc == false) {

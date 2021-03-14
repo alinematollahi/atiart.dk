@@ -69,7 +69,8 @@ function getMessages() {
                 yesbtn.type = "button";
         
                 removeBtn.addEventListener("click", (event) => {
-                    event.target.children[0].style.display = "block";
+                    //alert(event.target.tagName);
+                    event.target.parentElement.children[0].style.display = "block";
                 });
         
                 nobtn.addEventListener("click", (event) => {
