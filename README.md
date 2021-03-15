@@ -10,12 +10,19 @@ You can access main page on `index.php` and management page on `management.php` 
 
 `index.php` works like a single page app and that includes home page, shop page, about page, contact page and cart page.
 
-This video shows the performance of the website:
+<h3>This video shows the performance of the website:</h3>
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=zlTwKIr12_U"
 target="_blank"><img src="pictures/pre-video1.jpg" 
 alt="Play Video" border="10" /></a>
 
+<br/><br/>
+
+<h3>and, This video shows the performance of the content management system:</h3>
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=zlTwKIr12_U"
+target="_blank"><img src="pictures/pre-video2jpg" 
+alt="Play Video" border="10" /></a>
 
 <br/>
 
