@@ -20,11 +20,11 @@ alt="Play Video" border="10" /></a>
 
 <h3>and, This video shows the performance of the content management system:</h3>
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=zlTwKIr12_U"
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=bEOcoV4U9Ls"
 target="_blank"><img src="pictures/pre-video2.jpg" 
 alt="Play Video" border="10" /></a>
 
-<br/>
+<br/><br/><br/>
 
 # Home page
 
