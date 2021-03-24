@@ -147,7 +147,7 @@ function getProducts() {
 
             var response = JSON.parse(this.responseText);
 
-            var sampleInputContainer= document.getElementById("sampleInputContainer");
+            var sampleInputContainer = document.getElementById("sampleInputContainer");
 
             // create shop page
 
@@ -193,7 +193,7 @@ function getProducts() {
                     productBox.appendChild(img3src);
                     img3src.type = "hidden";
                     img3src.value = response[i].img3src;
-                   
+
                     let id = document.createElement("input");
                     productBox.appendChild(id);
                     id.type = "hidden";
@@ -294,7 +294,7 @@ function getProducts() {
 
             var homePart2 = document.getElementById("content-part2");
 
-            for (var i = 0; i < 6 ; i++) {
+            for (var i = 0; i < 6; i++) {
                 if (response[i].activity == '1') {
                     let productBox = document.createElement("div");
                     homePart2.appendChild(productBox);
@@ -337,7 +337,7 @@ function getProducts() {
                     img3src.type = "hidden";
                     img3src.value = response[i].img3src;
 
-                    
+
                     let id = document.createElement("input");
                     productBox.appendChild(id);
                     id.type = "hidden";
@@ -441,7 +441,7 @@ var taxValue;
 var shippingValue = 0;
 var totalValue = 0;
 
-taxValue= (subtotalValue + (subtotalValue * 0.05));
+taxValue = (subtotalValue + (subtotalValue * 0.05));
 
 subtotal.innerHTML = subtotalValue + "  DKK";
 tax.innerHTML = taxValue + "  DKK";
@@ -451,7 +451,7 @@ total.innerHTML = totalValue + "  DKK";
 //=============================================== add to cart ===============================================//
 
 
-var cartProductIDs =[];
+var cartProductIDs = [];
 
 var hideWindow = document.getElementById("hide-window");
 var cartQuestion = document.getElementById("cart-question");
@@ -460,7 +460,7 @@ var existText = document.getElementById("existText");
 var backToShop = document.getElementById("backToShop");
 var seeCart = document.getElementById("seeCart");
 
-backToShop.addEventListener("click",()=>{
+backToShop.addEventListener("click", () => {
     hideWindow.style.display = "none";
     shopPage.style.display = "flex";
 
@@ -472,7 +472,7 @@ backToShop.addEventListener("click",()=>{
     sampleContainer.style.display = "none";
 });
 
-seeCart.addEventListener("click",()=>{
+seeCart.addEventListener("click", () => {
     hideWindow.style.display = "none";
     cartPage.style.display = "block";
 
@@ -490,14 +490,14 @@ function addToCart(event) {
 
     let id = event.target.parentElement.parentElement.children[7];
     let continueFunc = true;
-    for( x in cartProductIDs){
-        if (id.value == cartProductIDs[x].value){ 
+    for (x in cartProductIDs) {
+        if (id.value == cartProductIDs[x].value) {
             continueFunc = false;
-             //alert(cartProductIDs[x].value);
+            //alert(cartProductIDs[x].value);
         }
     }
 
-    if ( continueFunc == false) {
+    if (continueFunc == false) {
         hideWindow.style.display = "block";
         existText.style.display = "block";
         addedText.style.display = "none";
@@ -509,7 +509,7 @@ function addToCart(event) {
         let name = event.target.parentElement.parentElement.children[0];
         let price = event.target.parentElement.parentElement.children[2];
         let mainImg = event.target.parentElement.parentElement.children[4];
-        
+
         let cartBoxContainer = document.getElementById("cart-box-container");
 
         let cartBox = document.createElement("div");
@@ -524,50 +524,50 @@ function addToCart(event) {
         cartBoxPart1.style.background = 'url("' + mainImg.value + '") no-repeat center';
         cartBoxPart1.style.backgroundSize = "contain";
 
-          // create hidden input to use for sample page;
+        // create hidden input to use for sample page;
 
         let Name = document.createElement("input");
         cartBoxPart1.appendChild(Name);
         Name.type = "hidden";
-        Name.value =  event.target.parentElement.parentElement.children[0].value;
+        Name.value = event.target.parentElement.parentElement.children[0].value;
 
         let size = document.createElement("input");
         cartBoxPart1.appendChild(size);
         size.type = "hidden";
-        size.value =  event.target.parentElement.parentElement.children[1].value;
+        size.value = event.target.parentElement.parentElement.children[1].value;
 
         let Price = document.createElement("input");
         cartBoxPart1.appendChild(Price);
         Price.type = "hidden";
-        Price.value =  event.target.parentElement.parentElement.children[2].value;
+        Price.value = event.target.parentElement.parentElement.children[2].value;
 
         let details = document.createElement("input");
         cartBoxPart1.appendChild(details);
         details.type = "hidden";
-        details.value =  event.target.parentElement.parentElement.children[3].value;
+        details.value = event.target.parentElement.parentElement.children[3].value;
 
         let img1src = document.createElement("input");
         cartBoxPart1.appendChild(img1src);
         img1src.type = "hidden";
-        img1src.value =  event.target.parentElement.parentElement.children[4].value;
+        img1src.value = event.target.parentElement.parentElement.children[4].value;
 
         let img2src = document.createElement("input");
         cartBoxPart1.appendChild(img2src);
         img2src.type = "hidden";
-        img2src.value =  event.target.parentElement.parentElement.children[5].value;
+        img2src.value = event.target.parentElement.parentElement.children[5].value;
 
         let img3src = document.createElement("input");
         cartBoxPart1.appendChild(img3src);
         img3src.type = "hidden";
-        img3src.value =  event.target.parentElement.parentElement.children[6].value;
+        img3src.value = event.target.parentElement.parentElement.children[6].value;
 
-        
+
         let ID = document.createElement("input");
         cartBoxPart1.appendChild(ID);
         ID.type = "hidden";
-        ID.value =  event.target.parentElement.parentElement.children[7].value;
-        
-        cartBoxPart1.addEventListener("click",(event)=>{
+        ID.value = event.target.parentElement.parentElement.children[7].value;
+
+        cartBoxPart1.addEventListener("click", (event) => {
             sampleContainer.style.display = "block";
 
             homeHeader.style.display = "none";
@@ -626,59 +626,59 @@ function addToCart(event) {
         let cartBoxPart2 = document.createElement("div");
         cartBox.appendChild(cartBoxPart2);
         cartBoxPart2.classList = "cart-box-part2";
-        
-            let cartBoxPart2Table1 = document.createElement("table");
-            cartBoxPart2.appendChild(cartBoxPart2Table1);
-            cartBoxPart2Table1.classList = "cart-box-part2-table1";
 
-                let cartBoxPart2Table1Tr1 = document.createElement("tr");
-                cartBoxPart2Table1.appendChild(cartBoxPart2Table1Tr1);
+        let cartBoxPart2Table1 = document.createElement("table");
+        cartBoxPart2.appendChild(cartBoxPart2Table1);
+        cartBoxPart2Table1.classList = "cart-box-part2-table1";
 
-                    let cartBoxPart2Table1Tr1Td1 = document.createElement("td");
-                    cartBoxPart2Table1Tr1.appendChild(cartBoxPart2Table1Tr1Td1);
-                    cartBoxPart2Table1Tr1Td1.classList = "cart-box-part2-table1-col1";
-                    cartBoxPart2Table1Tr1Td1.innerHTML = "Name";
+        let cartBoxPart2Table1Tr1 = document.createElement("tr");
+        cartBoxPart2Table1.appendChild(cartBoxPart2Table1Tr1);
 
-                    let cartBoxPart2Table1Tr1Td2 = document.createElement("td");
-                    cartBoxPart2Table1Tr1.appendChild(cartBoxPart2Table1Tr1Td2);
-                    cartBoxPart2Table1Tr1Td2.classList = "cart-box-part2-table1-col2";
-                    cartBoxPart2Table1Tr1Td2.innerHTML = name.value;
+        let cartBoxPart2Table1Tr1Td1 = document.createElement("td");
+        cartBoxPart2Table1Tr1.appendChild(cartBoxPart2Table1Tr1Td1);
+        cartBoxPart2Table1Tr1Td1.classList = "cart-box-part2-table1-col1";
+        cartBoxPart2Table1Tr1Td1.innerHTML = "Name";
 
-                let cartBoxPart2Table1Tr2 = document.createElement("tr");
-                cartBoxPart2Table1.appendChild(cartBoxPart2Table1Tr2);
+        let cartBoxPart2Table1Tr1Td2 = document.createElement("td");
+        cartBoxPart2Table1Tr1.appendChild(cartBoxPart2Table1Tr1Td2);
+        cartBoxPart2Table1Tr1Td2.classList = "cart-box-part2-table1-col2";
+        cartBoxPart2Table1Tr1Td2.innerHTML = name.value;
 
-                    let cartBoxPart2Table1Tr2Td1 = document.createElement("td");
-                    cartBoxPart2Table1Tr2.appendChild(cartBoxPart2Table1Tr2Td1);
-                    cartBoxPart2Table1Tr2Td1.classList = "cart-box-part2-table1-col1";
-                    cartBoxPart2Table1Tr2Td1.innerHTML = "Unit Price";
+        let cartBoxPart2Table1Tr2 = document.createElement("tr");
+        cartBoxPart2Table1.appendChild(cartBoxPart2Table1Tr2);
 
-                    let cartBoxPart2Table1Tr2Td2 = document.createElement("td");
-                    cartBoxPart2Table1Tr2.appendChild(cartBoxPart2Table1Tr2Td2);
-                    cartBoxPart2Table1Tr2Td2.classList = "cart-box-part2-table1-col2";
-                    cartBoxPart2Table1Tr2Td2.innerHTML = price.value +"  DKK";
-        
+        let cartBoxPart2Table1Tr2Td1 = document.createElement("td");
+        cartBoxPart2Table1Tr2.appendChild(cartBoxPart2Table1Tr2Td1);
+        cartBoxPart2Table1Tr2Td1.classList = "cart-box-part2-table1-col1";
+        cartBoxPart2Table1Tr2Td1.innerHTML = "Unit Price";
 
-            let cartBoxPart2Table2 = document.createElement("table");
-            cartBoxPart2.appendChild(cartBoxPart2Table2);
-            cartBoxPart2Table2.classList = "cart-box-part2-table2";
+        let cartBoxPart2Table1Tr2Td2 = document.createElement("td");
+        cartBoxPart2Table1Tr2.appendChild(cartBoxPart2Table1Tr2Td2);
+        cartBoxPart2Table1Tr2Td2.classList = "cart-box-part2-table1-col2";
+        cartBoxPart2Table1Tr2Td2.innerHTML = price.value + "  DKK";
 
-                let cartBoxPart2Table2Tr = document.createElement("tr");
-                cartBoxPart2Table2.appendChild(cartBoxPart2Table2Tr);
 
-                    let cartBoxPart2Table2TrTd1 = document.createElement("td");
-                    cartBoxPart2Table2Tr.appendChild(cartBoxPart2Table2TrTd1);
-                    cartBoxPart2Table2TrTd1.classList = "cart-box-part2-table2-col1";
-                    cartBoxPart2Table2TrTd1.innerHTML = "Quantity";
+        let cartBoxPart2Table2 = document.createElement("table");
+        cartBoxPart2.appendChild(cartBoxPart2Table2);
+        cartBoxPart2Table2.classList = "cart-box-part2-table2";
 
-                    let cartBoxPart2Table2TrTd2 = document.createElement("td");
-                    cartBoxPart2Table2Tr.appendChild(cartBoxPart2Table2TrTd2);
-                    cartBoxPart2Table2TrTd2.classList = "cart-box-part2-table2-col2";
+        let cartBoxPart2Table2Tr = document.createElement("tr");
+        cartBoxPart2Table2.appendChild(cartBoxPart2Table2Tr);
 
-                        let quantity = document.createElement("input");
-                        cartBoxPart2Table2TrTd2.appendChild(quantity);
-                        quantity.classList = "quantity";
-                        quantity.type = "number";
-                        quantity.value = 1 ;
+        let cartBoxPart2Table2TrTd1 = document.createElement("td");
+        cartBoxPart2Table2Tr.appendChild(cartBoxPart2Table2TrTd1);
+        cartBoxPart2Table2TrTd1.classList = "cart-box-part2-table2-col1";
+        cartBoxPart2Table2TrTd1.innerHTML = "Quantity";
+
+        let cartBoxPart2Table2TrTd2 = document.createElement("td");
+        cartBoxPart2Table2Tr.appendChild(cartBoxPart2Table2TrTd2);
+        cartBoxPart2Table2TrTd2.classList = "cart-box-part2-table2-col2";
+
+        let quantity = document.createElement("input");
+        cartBoxPart2Table2TrTd2.appendChild(quantity);
+        quantity.classList = "quantity";
+        quantity.type = "number";
+        quantity.value = 1;
 
         // part 3
 
@@ -686,14 +686,14 @@ function addToCart(event) {
         cartBox.appendChild(cartBoxPart3);
         cartBoxPart3.classList = "cart-box-part3";
         let productPrice = quantity.value * price.value;
-        
+
         cartBoxPart3.innerHTML = productPrice + "  DKK";
         subtotalValue = +subtotalValue;
         productPrice = +productPrice;
         subtotalValue = subtotalValue + productPrice;
         subtotal.innerHTML = subtotalValue + "  DKK";
 
-        shippingValue = shippingValue + (quantity.value*20);
+        shippingValue = shippingValue + (quantity.value * 20);
 
         taxValue = subtotalValue * 0.05;
         taxValue = taxValue.toFixed(2);
@@ -706,7 +706,7 @@ function addToCart(event) {
         total.innerHTML = totalValue + "  DKK";
 
 
-        quantity.addEventListener("change",()=>{
+        quantity.addEventListener("change", () => {
 
             let priceDiff = (quantity.value * price.value) - productPrice;
             productPrice = quantity.value * price.value;
@@ -719,7 +719,7 @@ function addToCart(event) {
             taxValue = +taxValue;
             tax.innerHTML = taxValue + "  DKK";
 
-            shippingValue = shippingValue + ((priceDiff/price.value)*20);
+            shippingValue = shippingValue + ((priceDiff / price.value) * 20);
             shipping.innerHTML = shippingValue + "  DKK";
 
             totalValue = subtotalValue + taxValue + shippingValue;
@@ -732,46 +732,75 @@ function addToCart(event) {
         cartBox.appendChild(cartBoxPart4);
         cartBoxPart4.classList = "cart-box-part4";
 
-            let closeProductBox = document.createElement("i");
-            cartBoxPart4.appendChild(closeProductBox);
-            closeProductBox.classList = "fas fa-times";
+        let closeProductBox = document.createElement("i");
+        cartBoxPart4.appendChild(closeProductBox);
+        closeProductBox.classList = "fas fa-times";
 
-            closeProductBox.addEventListener("click",(event)=>{
+        let cartHideWindow = document.createElement("div");
+        cartBoxPart4.appendChild(cartHideWindow);
+        cartHideWindow.classList = "cart-hide-window";
 
-                subtotalValue = subtotalValue - (quantity.value * price.value);
-                subtotal.innerHTML = subtotalValue + "  DKK";
+        let question = document.createElement("div");
+        cartHideWindow.appendChild(question);
+        question.classList = "question";
 
-                taxValue = subtotalValue * 0.05;
-                taxValue = taxValue.toFixed(2);
-                taxValue = +taxValue;
-                tax.innerHTML = taxValue + "  DKK";
+        let questionText = document.createTextNode("Are you sure to remove product ??!");
+        question.appendChild(questionText);
 
-                shippingValue = shippingValue - (20*quantity.value);
-                shipping.innerHTML = shippingValue + "  DKK";
+        let nobtn = document.createElement("button");
+        question.appendChild(nobtn);
+        nobtn.innerHTML = "No";
+        nobtn.type = "button";
 
-                totalValue = subtotalValue + taxValue + shippingValue;
-                total.innerHTML = totalValue + "  DKK";
+        let yesbtn = document.createElement("button");
+        question.appendChild(yesbtn);
+        yesbtn.innerHTML = "Yes";
+        yesbtn.type = "button";
 
-                event.target.parentElement.parentElement.style.display="none";
+        closeProductBox.addEventListener("click", (event) => {
+            event.target.nextElementSibling.style.display = "block";
+        });
 
-                for(x in cartProductIDs){
-                    if (id.value == cartProductIDs[x].value){cartProductIDs[x]="";}
-                }
-            });
+        nobtn.addEventListener("click", (event) => {
+            event.target.parentElement.parentElement.style.display = "none";
+        });
 
-           // show confirmation message
+        yesbtn.addEventListener("click", (event) => {
 
-           hideWindow.style.display = "block";
-           addedText.style.display = "block";
-           existText.style.display = "none";
+            subtotalValue = subtotalValue - (quantity.value * price.value);
+            subtotal.innerHTML = subtotalValue + "  DKK";
+
+            taxValue = subtotalValue * 0.05;
+            taxValue = taxValue.toFixed(2);
+            taxValue = +taxValue;
+            tax.innerHTML = taxValue + "  DKK";
+
+            shippingValue = shippingValue - (20 * quantity.value);
+            shipping.innerHTML = shippingValue + "  DKK";
+
+            totalValue = subtotalValue + taxValue + shippingValue;
+            total.innerHTML = totalValue + "  DKK";
+
+            event.target.parentElement.parentElement.parentElement.parentElement.style.display = "none";
+
+            for (x in cartProductIDs) {
+                if (id.value == cartProductIDs[x].value) { cartProductIDs[x] = ""; }
+            }
+        });
+
+        // show confirmation message
+
+        hideWindow.style.display = "block";
+        addedText.style.display = "block";
+        existText.style.display = "none";
     }
 }
 
 //================================ set contact form ================================//
 
-var formSubmitBtn =contactForm["formSubmitBtn"];
+var formSubmitBtn = contactForm["formSubmitBtn"];
 
-formSubmitBtn.addEventListener("click",()=>{
+formSubmitBtn.addEventListener("click", () => {
 
     var userName = document.getElementById("userName").value;
     var userEmail = document.getElementById("userEmail").value;
@@ -796,42 +825,42 @@ formSubmitBtn.addEventListener("click",()=>{
             contactForm.reset();
 
             let timer = setInterval(func1, 5);
-                    let counter = 0;
+            let counter = 0;
 
-                    function func1() {
-                        if (counter == 100) {
-                            clearInterval(timer);
-                            setTimeout(func2, 3000);
+            function func1() {
+                if (counter == 100) {
+                    clearInterval(timer);
+                    setTimeout(func2, 3000);
 
-                            function func2() {
-                                let timer1 = setInterval(func3, 3);
-                                let counter1 = 100;
+                    function func2() {
+                        let timer1 = setInterval(func3, 3);
+                        let counter1 = 100;
 
-                                function func3() {
-                                    if (counter1 == 0) {
-                                        clearInterval(timer1);
-                                        confirmation.style.display = "none"
-                                    } else {
-                                        counter1--;
-                                        confirmation.style.opacity = counter1 / 100;
-                                    }
-                                }
+                        function func3() {
+                            if (counter1 == 0) {
+                                clearInterval(timer1);
+                                confirmation.style.display = "none"
+                            } else {
+                                counter1--;
+                                confirmation.style.opacity = counter1 / 100;
                             }
-                        } else {
-                            counter++;
-                            confirmation.style.display = "block"
-                            confirmation.style.opacity = counter / 100;
                         }
                     }
+                } else {
+                    counter++;
+                    confirmation.style.display = "block"
+                    confirmation.style.opacity = counter / 100;
+                }
+            }
 
-                    confirmation.innerHTML = "Your Message Sent";
-                    confirmation.style.color = "green";
+            confirmation.innerHTML = "Your Message Sent";
+            confirmation.style.color = "green";
         } else {
- 
+
         }
     };
 
     xhr.open('POST', 'getMessage.php', true);
-    xhr.send(formData);     
+    xhr.send(formData);
 });
 
