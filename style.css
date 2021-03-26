@@ -648,6 +648,7 @@ color: rgb(40, 25, 51);
 }
 
 #hide-window , .cart-hide-window {
+    
     width: 100vw;
     height: 100vh;
     background-color: rgba(19, 17, 17, 0.8);
