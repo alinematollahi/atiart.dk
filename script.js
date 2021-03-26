@@ -486,24 +486,32 @@ seeCart.addEventListener("click", () => {
 
 function addToCart(event) {
 
+    alert('buuug0');
+
     event.stopPropagation();
 
     let id = event.target.parentElement.parentElement.children[7];
     let continueFunc = true;
     for (x in cartProductIDs) {
+
+        alert(cartProductIDs[x].value);
+
+        
         if (id.value == cartProductIDs[x].value) {
             continueFunc = false;
-            //alert(cartProductIDs[x].value);
+            alert(cartProductIDs[x].value);
         }
     }
 
     if (continueFunc == false) {
+        alert('buuug1');
         hideWindow.style.display = "block";
         existText.style.display = "block";
         addedText.style.display = "none";
     }
     else {
 
+        alert('buuug2');
         cartProductIDs.push(id);
 
         let name = event.target.parentElement.parentElement.children[0];
