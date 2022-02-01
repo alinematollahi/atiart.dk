@@ -4,13 +4,13 @@ $request = $_SERVER['REQUEST_URI'];
 
 switch ($request) {
     case '/' :
-        require __DIR__ . 'home.php';
+        require __DIR__ . '/home.php';
         break;
     case '' :
-        require __DIR__ . 'home.php';
+        require __DIR__ . '/home.php';
         break;
     case '/managment' :
-        require __DIR__ . 'managment.php';
+        require __DIR__ . '/managment.php';
         break;
     default:
         http_response_code(404);
