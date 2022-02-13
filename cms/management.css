@@ -1,0 +1,408 @@
+body {
+    margin: 0;
+    font-family: Segoe Print;
+}
+
+#pageBackground {
+    background:  url("pictures/r.jpg") no-repeat center fixed;
+    background-size: cover;  
+}
+
+#messages {
+    width: 100%;
+    height: 10vh;
+    background-color: rgba(19, 17, 17, 0.8);
+    color: white;
+    text-align: center;
+    font-size: 5vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+
+#management-start {
+height: 500px;
+}
+
+#addProduct , #showProducts , #manage-messages , #addProductBox {
+    display: none;
+}
+
+.management-start-txt {
+    text-align: center;
+    margin: 100px auto;
+    font-size: 9vh;
+    color: rgb(153, 28, 28);
+}
+
+.management-start-btn {
+    float: left;
+    width: 50%;
+}
+
+.management-start-btn button {
+    font-size: 6vh;
+    background-color: rgb(83, 114, 114);
+}
+
+#addProduct-head {
+    text-align: center;
+    font-size: 8vh;
+    color: rgb(30, 44, 58);
+    margin-top: 50px;
+}
+
+#addProductBox {
+    margin-top: 100px;
+}
+
+#addbtn {
+    font-size: 4vh;
+    display: block;
+    margin-top: 100px;
+}
+
+#addProductBtnDiv {
+    margin: 100px auto;
+}
+
+#statistics {
+    width: 90%;
+    margin: 100px auto;
+    background-color: lightcoral;
+}
+
+#statistics div {
+
+    float: left;
+    background-color: lightblue;
+    width: 25%;
+    box-sizing: border-box;
+    /*margin: 20px 4% 10px 4%;*/
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+#showProductsHeader {
+    text-align: center;
+    display: block;
+    font-size: 7vh;
+    margin: 100px auto 30px;
+}
+
+.productBox {
+    width: 90%;
+    height: 270px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px auto;  
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.pic {
+    float: left;
+    width: 17%;
+    height: 250px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px  0.75%;
+    box-sizing: border-boxs;
+}
+
+.picTitle {
+    text-align: center;
+    display: block;
+}
+.imgAddPreview {
+    max-height: 145px;
+    max-width: 100%;
+    display: none;
+    margin: 5px auto;
+}
+.imgShowPreview {
+    max-height: 195px;
+    max-width: 100%;
+    display: block;
+    margin: 5px auto;
+}
+
+.noimage {
+   display: none;
+   text-align: center;
+   box-sizing: border-box;
+   margin: 100px auto auto auto;
+   color: rgb(15, 56, 131);
+}
+
+button {
+    display: block;
+    width: auto;
+    margin: 5px auto;
+    background-color: rgb(156, 154, 160);
+    border: none;
+    border-radius: 5vw;
+    color: white;
+    font-family: inherit;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    cursor: pointer;
+    box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+
+.addbtn {
+    margin-top: 85px;
+
+    /*display: none;*/
+}
+
+input[type="file"] {
+    width: 100%;
+    
+    visibility: hidden;
+    /*
+    overflow: hidden;
+    display: inline;
+    
+    display: block;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px  auto;
+    font-family: inherit;
+    */
+}
+
+.browse {
+    width: 50%;
+    display: block;
+    position: relative;
+    margin: 85px auto;
+}
+
+.browse::before {
+    content: 'Add Image';
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(156, 154, 160);
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    position: absolute;
+            left: 0px;
+            right: 0px;
+            
+}
+
+.browse:hover::before {
+    cursor: pointer;
+    box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+
+.browse-change {
+    width: 70%;
+    display: block;
+    position: relative;
+    margin: 5px auto 12px;
+}
+
+.browse-change::before {
+    content: 'Change Image';
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(156, 154, 160);
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    position: absolute;
+            left: 0px;
+            right: 0px;
+            
+}
+
+.browse-change:hover::before {
+    cursor: pointer;
+    box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(27, 188, 236, 0.4);
+}
+
+.btnDiv {
+    display: none;
+}
+
+
+.tableDiv {
+    float: left;
+    width: 30%;
+    height: 250px;
+    margin: 10px  0.75%;
+}
+
+table {
+    width: 100%;
+    height: 250px;
+    border-collapse: collapse;
+}
+
+td {
+    width: 50%;
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    text-align: center;
+}
+
+input[type="text"] , select {
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    text-align: center;
+    font-family: Segoe Print;
+
+}
+
+input[type="text"]:focus , select:focus {
+    outline: none;
+    box-shadow:
+        0 2px 4px 0 rgba(0, 0, 0, 0.2),
+        0 3px 10px 0 rgba(27, 188, 236, 0.4);
+}
+
+.setDiv {
+    float: left;
+    width: 11%;
+    height: 250px;
+    margin: 10px 0.75%;
+}
+
+.editDiv {
+    margin-top: 25px;
+}
+
+.editbtn {
+    font-weight: bold;
+    color: rgb(228, 164, 44);
+}
+
+.rmbtn {
+    font-weight: bold;
+    color: rgb(184, 44, 44);
+}
+
+.saveDiv {
+    margin-top: 85px;
+}
+
+.savebtn {
+    font-weight: bold;
+    color: green;
+}
+
+.hide-window {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(19, 17, 17, 0.8);
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: none;
+}
+
+.question {
+    width: 40vw;
+    height: 40vh;
+    margin: 30vh auto;
+    z-index: 4;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding-top: 10vh;
+    text-align: center;
+}
+
+.question button {
+    width: 15vw;
+    margin-top: 3vh;
+}
+.edit-save {
+    margin-top: 100px;
+    /*display: none;*/
+}
+.edit-productBox {
+    display: none;
+    width: 90%;
+    height: 270px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px auto;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+/*====================================== messages page ============================================*/
+
+#manage-messages span {
+    display: block;
+    text-align: center;
+    font-size: 6vh;
+    color: rgb(85, 71, 94);
+    margin-top: 50px;
+}
+
+#messageTable {
+    width: 95%;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.75);
+}
+
+.date , .time , .user-name {
+    width: 12%;
+}
+
+.user-email {
+    width: 17%;
+}
+
+.message-txt {
+    width: 40%;
+}
+
+.remove-message {
+    width: 7%;
+}
+.remove-message:hover {
+    cursor: pointer;
+    color: red;
+}
+
+#remove-header {
+    cursor: auto;
+    color: inherit;
+}
